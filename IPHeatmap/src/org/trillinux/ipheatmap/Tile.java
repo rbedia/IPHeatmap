@@ -73,7 +73,13 @@ public class Tile {
 			h.setLabelFile(labelFile);
 			h.start();
 
-			h.saveImage(cacheDir + "/" + z + "/" + x + "-" + y + ".png");
+			File dir = new File(cacheDir + "/" + z);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			if (dir.exists()) {
+				h.saveImage(new File(dir, x + "-" + y + ".png"));
+			}
 
 			if (out != null) {
 				h.writeImage(out);

@@ -49,7 +49,7 @@ public class Tiler {
 				int y = offset.y / 256;
 				int level = (maskBits / 2) + 1;
 				
-				h.saveImage("/home/rafael/crawler/new-" + type + "-tiles/" + level + "/" + x + "-" + y + ".png");
+				h.saveImage(new File("/home/rafael/crawler/new-" + type + "-tiles/" + level + "/" + x + "-" + y + ".png"));
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}

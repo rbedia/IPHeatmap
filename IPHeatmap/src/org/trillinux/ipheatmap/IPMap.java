@@ -162,8 +162,8 @@ public class IPMap {
 		}
 	}
 	
-	public void saveImage(String file) throws IOException {
-		ImageIO.write(bimage, "png", new File(file));
+	public void saveImage(File file) throws IOException {
+		ImageIO.write(bimage, "png", file);
 	}
 	
 	public void writeImage(OutputStream out) throws IOException {
@@ -351,7 +351,7 @@ public class IPMap {
 		IPMap h = new IPMap(cidr, 4);
 		h.addIPMapping(new IPMapping(CIDR.cidr_parse("0.0.0.0/0"), new File(file)));
 		h.start();
-		h.saveImage("test.png");
+		h.saveImage(new File("test.png"));
 		
 		System.out.println((System.currentTimeMillis() - now) / 1000.0);
 	}
