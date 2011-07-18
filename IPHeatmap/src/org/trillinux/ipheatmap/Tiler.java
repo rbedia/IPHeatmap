@@ -7,19 +7,26 @@ import java.io.IOException;
 
 public class Tiler {
 
-	private int maskBits;
+	private File ipDir;
 	
-	private String ipDir;
+	private File labelFile;
 	
-	private String type;
+	private File outputDir;
 	
-	public Tiler(int maskBits, String ipDir, String type) {
+	public Tiler(File ipDir, File labelFile, File outputDir) {
 		this.ipDir = ipDir;
-		this.type = type;
-		this.maskBits = maskBits;
+		this.labelFile = labelFile;
+		this.outputDir = outputDir;
 	}
 	
-	public void generate() {
+	/**
+	 * Generates all of the tiles at a particular zoom level.
+	 * 
+	 * TODO rbedia: convert this from using maskBits to using zoom level
+	 * 
+	 * @param maskBits
+	 */
+	public void generateLevel(int maskBits) {
 		int count = 1 << maskBits;
 		int lowerBits = 32 - maskBits;
 		for (int i = 0; i < count; i++) {
@@ -30,18 +37,10 @@ public class Tiler {
 	
 				CIDR cidr = CIDR.cidr_parse(cidrStr);
 				IPMap h = new IPMap(cidr, 16 - maskBits);
-				for (int j = 0; j < 256; j++) {
-					for (int k = 0; k < 256; k++) {
-						CIDR range = CIDR.cidr_parse(j + "." + k + ".0.0/8");
-//						if (range.overlaps(cidr)) {
-							File file = new File(ipDir, j + "/" + k + ".txt");
-							if (file.exists()) {
-								h.addIPMapping(new IPMapping(range, file));
-							}
-//						}
-					}
-				}
 				
+				IPListLoader loader = new IPListLoader(ipDir);
+				h.addIPMappings(loader.getMappings());
+				h.setLabelFile(labelFile);
 				h.start();
 				
 				Point offset = h.getOffset();
@@ -49,10 +48,26 @@ public class Tiler {
 				int y = offset.y / 256;
 				int level = (maskBits / 2) + 1;
 				
-				h.saveImage(new File("/home/rafael/crawler/new-" + type + "-tiles/" + level + "/" + x + "-" + y + ".png"));
+				File tile = new File(outputDir, level + "/" + x + "/" + y + ".png");
+				File parent = tile.getParentFile();
+				parent.mkdirs();
+				if (parent.exists()) {
+					h.saveImage(tile);
+				} else {
+					System.out.println("Directory couldn't be created: " + parent);
+				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+		}
+	}
+	
+	/**
+	 * Generates the tiles for all zoom levels.
+	 */
+	public void generate() {
+		for (int i = 0; i <= 16; i += 2) {
+			generateLevel(i);
 		}
 	}
 	
@@ -62,9 +77,14 @@ public class Tiler {
 	public static void main(String[] args) throws Exception {
 		long now = System.currentTimeMillis();
 		
-		String file = "/home/rafael/crawler/hubs/";
-		Tiler tiler = new Tiler(10, file, "hub");
-		tiler.generate();
+		File ipDir = new File("/home/rafael/crawler/hubs/");
+		File outputDir = new File("/home/rafael/crawler/new-hubs-tiles/");
+		File labelFile = new File("/home/rafael/crawler/network-labels.txt");
+		
+		for (int i = 0; i <= 16; i += 2) {
+			Tiler tiler = new Tiler(ipDir, labelFile, outputDir);
+			tiler.generateLevel(i);
+		}
 		
 		System.out.println((System.currentTimeMillis() - now) / 1000.0);
 	}
