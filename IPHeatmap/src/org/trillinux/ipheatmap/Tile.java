@@ -73,12 +73,13 @@ public class Tile {
 			h.setLabelFile(labelFile);
 			h.start();
 
-			File dir = new File(cacheDir + "/" + z);
+			File tileFile = getTileFile(x, y, z);
+			File dir = tileFile.getParentFile();
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
 			if (dir.exists()) {
-				h.saveImage(new File(dir, x + "-" + y + ".png"));
+				h.saveImage(tileFile);
 			}
 
 			if (out != null) {
@@ -102,8 +103,7 @@ public class Tile {
 	 */
 	public void writeCachedTile(int x, int y, int z, OutputStream out)
 			throws IOException {
-		FileInputStream is = new FileInputStream(new File(cacheDir, z + "/" + x
-				+ "-" + y + ".png"));
+		FileInputStream is = new FileInputStream(getTileFile(x, y, z));
 
 		byte[] buffer = new byte[4096];
 		int len;
@@ -124,9 +124,12 @@ public class Tile {
 	 * @return true if the tile exists, false otherwise
 	 */
 	public boolean tileExists(int x, int y, int z) {
-		File tilefile = new File(cacheDir, z + "/" + x + "-" + y
-				+ ".png");
+		File tilefile = getTileFile(x, y, z);
 		return tilefile.exists();
+	}
+	
+	public File getTileFile(int x, int y, int z) {
+		return new File(cacheDir, z + "/" + x + "-" + y + ".png");
 	}
 
 	/**
