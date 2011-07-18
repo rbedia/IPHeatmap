@@ -123,6 +123,7 @@ public class IPMap {
 		
 		loadColors();
 	}
+	
 	/**
 	 * Adds an IPMapping which is a map from a CIDR mask to a file that 
 	 * contains a list of IPs that fall within that range. The IP addresses in
@@ -135,7 +136,19 @@ public class IPMap {
 	public void addIPMapping(IPMapping mapping) {
 		iplists.add(mapping);
 	}
-	
+
+	/**
+	 * Adds a list of IPMappings which are maps from a CIDR mask to a file that 
+	 * contains a list of IPs that fall within that range. The IP addresses in
+	 * the file will be mapped if they fall within the range being mapped. This
+	 * is an optimization so that not as many IPs have to be checked for 
+	 * inclusion in the final image.
+	 * 
+	 * @param mappings
+	 */
+	public void addIPMappings(List<IPMapping> mappings) {
+		iplists.addAll(mappings);
+	}
 	/**
 	 * Creates the colors that will be used on the heatmap. The range is from
 	 * blue to red.

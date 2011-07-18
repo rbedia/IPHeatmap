@@ -67,15 +67,9 @@ public class Tile {
 			box.ymax = box.ymin + 256;
 
 			IPMap h = new IPMap(box, maskBits, 16 - maskBits);
-			for (int j = 0; j < 256; j++) {
-				for (int k = 0; k < 256; k++) {
-					CIDR range = CIDR.cidr_parse(j + "." + k + ".0.0/16");
-					File file = new File(ipDir, j + "/" + k + ".txt");
-					if (file.exists()) {
-						h.addIPMapping(new IPMapping(range, file));
-					}
-				}
-			}
+			
+			IPListLoader loader = new IPListLoader(ipDir);
+			h.addIPMappings(loader.getMappings());
 			h.setLabelFile(labelFile);
 			h.start();
 
