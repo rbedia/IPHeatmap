@@ -129,7 +129,7 @@ public class Tile {
 	}
 	
 	public File getTileFile(int x, int y, int z) {
-		return new File(cacheDir, z + "/" + x + "-" + y + ".png");
+		return new File(cacheDir, z + "/" + x + "/" + y + ".png");
 	}
 
 	/**

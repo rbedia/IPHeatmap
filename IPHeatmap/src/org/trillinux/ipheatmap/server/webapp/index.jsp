@@ -86,9 +86,9 @@
             }
 
         var map = new OpenLayers.Map('map', options);
-		var hubLayer = new OpenLayers.Layer.XYZ("Hubs", "tile/hubs?z=\${z}&x=\${x}&y=\${y}", {numZoomLevels: 10, alpha: true, layers: 'basic'});
+		var hubLayer = new OpenLayers.Layer.XYZ("Hubs", "tile/hubs/\${z}/\${x}/\${y}.png", {numZoomLevels: 10, alpha: true, layers: 'basic'});
         map.addLayer(hubLayer);
-		var leafLayer = new OpenLayers.Layer.XYZ("Leaves", "tile/leaves?z=\${z}&x=\${x}&y=\${y}", {numZoomLevels: 10, alpha: true, layers: 'basic'});
+		var leafLayer = new OpenLayers.Layer.XYZ("Leaves", "tile/leaves/\${z}/\${x}/\${y}.png", {numZoomLevels: 10, alpha: true, layers: 'basic'});
         map.addLayer(leafLayer);
 
 		var click = new OpenLayers.Control.Click();

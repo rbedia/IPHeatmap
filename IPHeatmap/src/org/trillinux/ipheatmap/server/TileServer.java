@@ -50,7 +50,7 @@ public class TileServer {
 		tileHandler.setContextPath("/tile");
 		
 		for (TileServletConfig config : configs) {
-			tileHandler.addServlet(new ServletHolder(new TileServlet(config)), "/" + config.getName());
+			tileHandler.addServlet(new ServletHolder(new TileServlet(config)), "/" + config.getName() + "/*");
 		}
 
 		rootHandler.addHandler(tileHandler);

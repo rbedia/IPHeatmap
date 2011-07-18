@@ -52,15 +52,41 @@ public class TileServlet extends HttpServlet {
 		this.cache = config.isCache();
 	}
 
+	/**
+	 * Requests come in the form of /z/x/y.png where z, x, y are positive
+	 * integers.
+	 */
 	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException,
 			IOException {
-
 		ServletOutputStream output = response.getOutputStream();
 		
-		int z = Integer.parseInt(request.getParameter("z"));
-		int x = Integer.parseInt(request.getParameter("x"));
-		int y = Integer.parseInt(request.getParameter("y"));
+		String path = request.getPathInfo();
+		
+		if (!path.endsWith(".png")) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+		path = path.substring(0, path.length() - 4);
+		
+		String[] parts = path.split("/");
+		if (parts.length != 4) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+		
+		int z = -1;
+		int x = -1;
+		int y = -1;
+		try {
+			z = Integer.parseInt(parts[1]);
+			x = Integer.parseInt(parts[2]);
+			y = Integer.parseInt(parts[3]);
+		} catch (NumberFormatException ex) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+		
 		boolean nocache = request.getParameter("nocache") != null;
 
 		response.setContentType("image/png");
