@@ -91,9 +91,14 @@ public class IPSplitter {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		String file = "/home/rafael/crawler/hubs.txt";
-		String directory = "/home/rafael/crawler/hubs/";
-		IPSplitter splitter = new IPSplitter(new File(file), new File(directory));
+		if (args.length != 2) {
+			System.out.println("Expected two arguments: file, directory");
+			System.out.println("file - The file containing a list of IP addresses one per line.");
+			System.out.println("directory - The directory where the split files will be saved.");
+			System.exit(1);
+		}
+		
+		IPSplitter splitter = new IPSplitter(new File(args[0]), new File(args[1]));
 		splitter.start();
 	}
 
