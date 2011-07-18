@@ -75,18 +75,16 @@ public class Tiler {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		long now = System.currentTimeMillis();
-		
-		File ipDir = new File("/home/rafael/crawler/hubs/");
-		File outputDir = new File("/home/rafael/crawler/new-hubs-tiles/");
-		File labelFile = new File("/home/rafael/crawler/network-labels.txt");
-		
-		for (int i = 0; i <= 16; i += 2) {
-			Tiler tiler = new Tiler(ipDir, labelFile, outputDir);
-			tiler.generateLevel(i);
+		if (args.length != 3) {
+			System.out.println("Expected: ipDir outputDir labelFile");
 		}
 		
-		System.out.println((System.currentTimeMillis() - now) / 1000.0);
+		File ipDir = new File(args[0]);
+		File outputDir = new File(args[1]);
+		File labelFile = new File(args[2]);
+		
+		Tiler tiler = new Tiler(ipDir, labelFile, outputDir);
+		tiler.generate();
 	}
 
 }
