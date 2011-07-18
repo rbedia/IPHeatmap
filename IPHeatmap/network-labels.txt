@@ -1,0 +1,684 @@
+0.0.0.0/8	IANA - Local Identification	prefix
+1.0.0.0/8	APNIC	prefix
+1.6.0.0/15	SIFY	prefix
+1.8.0.0/16	KNET	prefix
+1.9.0.0/16	TMNET	prefix
+1.12.0.0/14	Founder	prefix
+1.16.0.0/14	SixKA	prefix
+1.20.0.0/16	TOT	prefix
+1.21.0.0/16	Vectant	prefix
+1.22.0.0/15	Tikona	prefix
+1.24.0.0/13	Unicom	prefix
+1.32.0.0/16	Renjiao	prefix
+1.33.0.0/16	NTT	prefix
+1.34.0.0/15	HINET	prefix
+1.36.0.0/16	PCCW	prefix
+1.38.0.0/16	Vodafone	prefix
+1.39.0.0/16	Vodafone	prefix
+1.40.0.0/14	Optus	prefix
+1.44.0.0/16	Optus	prefix
+1.45.0.0/16	CXNET	prefix
+1.48.0.0/15	China Telecom	prefix
+1.50.0.0/16	China Telecom	prefix
+1.51.0.0/16	China ERN	prefix
+1.56.0.0/13	China Unicom	prefix
+1.64.0.0/15	Netvigator	prefix
+1.66.0.0/15	NTT	prefix
+1.68.0.0/14	China Telecom	prefix
+1.72.0.0/13	NTT	prefix
+1.80.0.0/13	China Telecom	prefix
+1.88.0.0/14	BGCTV	prefix
+1.96.0.0/12	Korea Telecom Freetel	prefix
+1.112.0.0/14	eMobile	prefix
+1.116.0.0/14	Chinacom	prefix
+1.120.0.0/13	Telstra	prefix
+1.128.0.0/11	Telstra	prefix
+1.160.0.0/12	HINET	prefix
+1.180.0.0/14	China Telecom	prefix
+1.184.0.0/15	China ERN	prefix
+1.188.0.0/14	China Unicom	prefix
+1.192.0.0/13	China Telecom	prefix
+1.204.0.0/14	China Telecom	prefix
+1.208.0.0/12	Bora	prefix
+1.224.0.0/11	SK Broadband	prefix
+2.0.0.0/8	RIPE	prefix
+3.0.0.0/8	GE	prefix
+4.0.0.0/8	Level3	prefix
+5.0.0.0/8	RIPE	prefix
+6.0.0.0/8	Army ISC	prefix
+7.0.0.0/8	ARIN	prefix
+8.0.0.0/8	Level3	prefix
+8.7.68.0/22	Cricket	prefix
+8.14.224.0/19	IUSACELL	prefix
+8.24.0.0/21	SecureNet	prefix
+9.0.0.0/8	IBM	prefix
+10.0.0.0/8	IANA - Private Use	prefix
+11.0.0.0/8	DoD	prefix
+12.0.0.0/8	AT&T	prefix
+13.0.0.0/8	Xerox	prefix
+14.0.0.0/8	APNIC	prefix
+14.96.0.0/14	TATA	prefix
+14.194.0.0/15	TATA	prefix
+15.0.0.0/8	HP	prefix
+16.0.0.0/8	DEC	prefix
+17.0.0.0/8	Apple	prefix
+18.0.0.0/8	MIT	prefix
+19.0.0.0/8	Ford	prefix
+20.0.0.0/8	Computer Sciences Corporation	prefix
+21.0.0.0/8	DDN-RVN	prefix
+22.0.0.0/8	DISA	prefix
+23.0.0.0/8	ARIN	prefix
+24.0.0.0/8	ARIN	prefix
+24.0.0.0/12	Comcast	prefix
+24.16.0.0/13	Comcast	prefix
+24.24.0.0/14	RR	prefix
+24.28.0.0/15	RR	prefix
+24.30.0.0/18	Comcast	prefix
+24.30.64.0/19	Comcast	prefix
+24.30.128.0/18	RR	prefix
+24.30.192.0/19	RR	prefix
+24.31.0.0/19	Northland	prefix
+24.31.32.0/19	RR	prefix
+24.31.64.0/18	RR	prefix
+24.31.128.0/17	RR	prefix
+24.32.0.0/16	Cebridge	prefix
+24.33.0.0/16	RR	prefix
+24.34.0.0/16	Comcast	prefix
+24.35.0.0/17	Broadstripe	prefix
+24.35.128.0/17	Cobridge	prefix
+24.36.0.0/16	Cogeco	prefix
+24.37.0.0/16	Videotron	prefix
+24.39.0.0/16	RR	prefix
+24.43.0.0/16	RR	prefix
+24.44.0.0/14	Optimum	prefix
+24.48.0.0/17	Videotron	prefix
+24.57.0.0/16	Cogeco	prefix
+24.58.0.0/15	RR	prefix
+24.60.0.0/14	Comcast	prefix
+24.64.0.0/13	Shaw	prefix
+24.76.0.0/14	Shaw	prefix
+24.80.0.0/13	Shaw	prefix
+24.88.0.0/16	RR	prefix
+24.89.128.0/18	Static IP Services	prefix
+24.89.192.0/18	Eastlink	prefix
+24.90.0.0/16	RR	prefix
+24.91.0.0/16	Comcast	prefix
+24.92.160.0/19	RR	prefix
+24.92.192.0/18	RR	prefix
+24.93.0.0/16	RR	prefix
+24.94.0.0/15	RR	prefix
+24.96.0.0/16	Knology	prefix
+24.97.0.0/16	RR	prefix
+24.98.0.0/15	Comcast	prefix
+24.100.0.0/17	New Wave	prefix
+24.100.128.0/18	New Wave	prefix
+24.101.0.0/16	Armstrong	prefix
+24.102.128.0/17	PenTeleData	prefix
+24.103.0.0/16	RR	prefix
+24.107.0.0/16	Charter	prefix
+24.108.0.0/15	Shaw	prefix
+24.110.0.0/16	Earthlink	prefix
+24.111.0.0/16	Midcontinent Media	prefix
+24.112.0.0/17	James Cable	prefix
+24.112.128.0/17	Armstrong	prefix
+24.113.0.0/16	Wave Broadband	prefix
+24.114.0.0/16	Rogers	prefix
+24.115.0.0/16	PenTeleData	prefix
+24.116.0.0/15	Cable One	prefix
+24.118.0.0/16	Comcast	prefix
+24.119.0.0/16	Cable One	prefix
+24.120.0.0/16	Cox	prefix
+24.121.0.0/16	NPG Cable	prefix
+24.122.0.0/16	Cogeco	prefix
+24.123.0.0/16	RR	prefix
+24.124.0.0/17	Sunflower	prefix
+24.124.128.0/17	Comcast	prefix
+24.125.0.0/16	Comcast	prefix
+24.126.0.0/15	Comcast	prefix
+24.128.0.0/16	Comcast	prefix
+24.129.0.0/17	Comcast	prefix
+24.130.0.0/15	Comcast	prefix
+24.132.0.0/16	Kabeltelevisie	prefix
+24.141.0.0/16	Cogeco	prefix
+24.145.0.0/17	Atlantic Broadband Finance	prefix
+24.147.0.0/16	Comcast	prefix
+24.150.0.0/16	Cogeco	prefix
+24.151.0.0/16	Charter	prefix
+24.154.0.0/16	Armstrong	prefix
+24.155.0.0/16	Grande Communications	prefix
+24.156.0.0/17	NPG Cable	prefix
+24.158.0.0/15	Charter	prefix
+24.160.0.0/13	RR	prefix
+24.176.0.0/13	Charter	prefix
+24.184.0.0/13	Optimum	prefix
+24.200.0.0/14	Videotron	prefix
+24.208.0.0/14	RR	prefix
+24.248.0.0/13	Cox	prefix
+25.0.0.0/8	UK Ministry of Defence	prefix
+26.0.0.0/8	DISA	prefix
+27.0.0.0/8	APNIC	prefix
+27.109.128.0/17	CTM	prefix
+28.0.0.0/8	DSI-North	prefix
+29.0.0.0/8	DISA	prefix
+30.0.0.0/8	DISA	prefix
+31.0.0.0/8	RIPE	prefix
+32.0.0.0/8	AT&T	prefix
+33.0.0.0/8	DLA Systems Automation Center	prefix
+34.0.0.0/8	Halliburton	prefix
+35.0.0.0/8	MERIT	prefix
+35.0.0.0/16	Uni of Michigan	prefix
+35.8.0.0/13	Michigan State Uni	prefix
+35.32.0.0/16	Central Michigan Uni	prefix
+36.0.0.0/8	APNIC	prefix
+37.0.0.0/8	RIPE	prefix
+38.0.0.0/8	PSI	prefix
+39.0.0.0/8	APNIC	prefix
+40.0.0.0/8	Eli Lily	prefix
+41.0.0.0/8	AfriNIC	prefix
+41.0.0.0/11	Vodacom	prefix
+41.32.0.0/12	TE Data	prefix
+41.48.0.0/12	Cellc	prefix
+41.96.0.0/12	Alger	prefix
+41.112.0.0/12	MTN	prefix
+41.128.0.0/14	Link	prefix
+41.132.0.0/14	MWEB	prefix
+41.140.0.0/14	Maroc	prefix
+41.144.0.0/13	Telkom	prefix
+41.160.0.0/12	Neotel	prefix
+41.224.0.0/13	ATI	prefix
+41.232.0.0/13	TE Data	prefix
+41.240.0.0/13	Telkom	prefix
+41.248.0.0/14	Maroc	prefix
+41.252.0.0/14	LTT	prefix
+42.0.0.0/8	APNIC	prefix
+43.0.0.0/8	APNIC	prefix
+44.0.0.0/8	Amateur Radio Digital Communications	prefix
+45.0.0.0/8	ARIN	prefix
+46.0.0.0/8	RIPE	prefix
+47.0.0.0/8	Bell-Northern Research	prefix
+48.0.0.0/8	Prudential	prefix
+49.0.0.0/8	APNIC	prefix
+50.0.0.0/8	ARIN	prefix
+50.128.0.0/9	Comcast	prefix
+51.0.0.0/8	UK Government Department for Work and Pensions	prefix
+52.0.0.0/8	E.I. duPont de Nemours and Co., Inc.	prefix
+53.0.0.0/8	Cap Debis CCS	prefix
+54.0.0.0/8	Merck and Co., Inc.	prefix
+55.0.0.0/8	DoD NIC	prefix
+56.0.0.0/8	US Postal Service	prefix
+57.0.0.0/8	SITA	prefix
+58.0.0.0/7	APNIC	prefix
+58.128.0.0/13	BJENET	prefix
+58.160.0.0/12	Telstra	prefix
+58.224.0.0/12	Hanaro	prefix
+59.32.0.0/13	China Telecom	prefix
+59.128.0.0/12	KDDI	prefix
+59.192.0.0/10	China eGovNet	prefix
+60.0.0.0/7	APNIC	prefix
+61.216.0.0/13	HINET	prefix
+61.224.0.0/13	HINET	prefix
+62.0.0.0/8	RIPE	prefix
+62.0.0.0/16	NetVision	prefix
+61.20.0.0/16	Far EasTone	prefix
+62.46.0.0/15	A1 Telekom Austria	prefix
+62.48.128.0/17	PT Prime	prefix
+62.52.0.0/14	Telefonica Deutschland	prefix
+62.88.0.0/17	be.mobistar	prefix
+62.136.0.0/15	Energis	prefix
+62.156.0.0/14	Deutsche Telekom	prefix
+62.160.0.0/15	Orange	prefix
+62.197.64.0/18	Brutele	prefix
+62.224.0.0/14	Deutsche Telekom	prefix
+62.236.0.0/15	TDC	prefix
+62.240.64.0/19	Telekarelia Oy	prefix
+62.241.64.0/18	Numericable	prefix
+62.252.0.0/14	NTL	prefix
+63.0.0.0/8	ARIN	prefix
+63.0.0.0/10	Verizon	prefix
+63.64.0.0/10	Verizon	prefix
+64.0.0.0/5	ARIN	prefix
+65.0.0.0/12	BellSouth	prefix
+65.24.0.0/14	RR	prefix
+65.92.0.0/14	Bell Canada	prefix
+65.128.0.0/11	Qwest	prefix
+65.192.0.0/11	Verizon	prefix
+66.11.240.0/20	Bledsoe TCC	prefix
+66.36.128.0/19	AEI	prefix
+67.160.0.0/11	Comcast	prefix
+68.32.0.0/11	Comcast	prefix
+70.160.0.0/11	Cox	prefix
+70.192.0.0/11	Verizon	prefix
+71.96.0.0/11	Verizon	prefix
+71.128.0.0/11	ATT	prefix
+72.96.0.0/11	Verizon	prefix
+72.128.0.0/13	RR	prefix
+72.136.0.0/13	Rogers	prefix
+72.144.0.0/12	BellSouth	prefix
+72.192.0.0/11	Cox	prefix
+72.224.0.0/13	RR	prefix
+73.0.0.0/8	Comcast	prefix
+74.32.0.0/12	Frontier	prefix
+74.64.0.0/12	RR	prefix
+74.96.0.0/12	Verizon	prefix
+74.128.0.0/12	Insight	prefix
+74.144.0.0/12	Comcast	prefix
+74.160.0.0/11	BellSouth	prefix
+74.192.0.0/14	Sudden	prefix
+74.224.0.0/11	BellSouth	prefix
+75.0.0.0/10	ATT	prefix
+75.64.0.0/13	Comcast	prefix
+75.72.0.0/14	Comcast	prefix
+75.80.0.0/13	RR	prefix
+75.88.0.0/14	WS	prefix
+75.92.0.0/14	Clearwire	prefix
+75.104.0.0/14	WB	prefix
+75.112.0.0/14	BH	prefix
+75.128.0.0/12	Charter	prefix
+75.144.0.0/13	Comcast	prefix
+75.152.0.0/13	Telus	prefix
+75.160.0.0/12	Qwest	prefix
+75.176.0.0/12	RR	prefix
+75.192.0.0/10	Verizon	prefix
+76.0.0.0/13	Embarq	prefix
+76.16.0.0/12	Comcast	prefix
+76.32.0.0/11	RR	prefix
+76.64.0.0/13	Bell	prefix
+76.80.0.0/12	RR	prefix
+76.96.0.0/11	Comcast	prefix
+76.128.0.0/11	Comcast	prefix
+76.168.0.0/13	RR	prefix
+76.176.0.0/13	RR	prefix
+76.184.0.0/14	RR	prefix
+76.192.0.0/10	ATT	prefix
+77.0.0.0/12	O2 DE	prefix
+77.16.0.0/14	Telenor	prefix
+77.20.0.0/14	Kabel	prefix
+77.56.0.0/14	Cablecom	prefix
+77.60.0.0/14	KPN	prefix
+77.96.0.0/13	Telewest	prefix
+77.112.0.0/14	Polkomtel	prefix
+77.116.0.0/14	H3G	prefix
+77.128.0.0/11	SFR	prefix
+77.160.0.0/12	KPN	prefix
+77.176.0.0/12	O2 DE	prefix
+77.192.0.0/12	LDCOM	prefix
+77.208.0.0/14	Airtel	prefix
+77.212.0.0/14	Telenor	prefix
+77.216.0.0/14	Tele2	prefix
+77.224.0.0/13	Comunitel	prefix
+77.248.0.0/14	UPC NL	prefix
+78.16.0.0/14	IEUNET	prefix
+78.20.0.0/14	Telenet	prefix
+78.48.0.0/13	Hanse	prefix
+78.56.0.0/13	TEO LT	prefix
+78.64.0.0/12	Telia	prefix
+78.112.0.0/12	LDCOM	prefix
+78.144.0.0/13	Opal	prefix
+78.160.0.0/11	Turk	prefix
+78.192.0.0/10	ProXad	prefix
+79.0.0.0/10	Telecom Italia	prefix
+79.64.0.0/12	Tiscali	prefix
+79.80.0.0/12	LDCOM	prefix
+79.128.0.0/14	OTE		prefix
+79.176.0.0/13	Bezeq	prefix
+79.184.0.0/13	TP	prefix
+79.192.0.0/10	DTAG	prefix
+80.0.0.0/4	RIPE	prefix
+80.0.0.0/13	NTL	prefix
+80.8.0.0/16	FT	prefix
+80.9.0.0/16	Orange	prefix
+80.16.0.0/13	Interb	prefix
+80.24.0.0/15	RIMA	prefix
+80.26.0.0/15	TDENET	prefix
+80.28.0.0/14	TDENET	prefix
+80.32.0.0/13	RIMA	prefix
+80.40.0.0/13	Tiscali	prefix
+80.48.0.0/13	TPNET	prefix
+80.56.0.0/15	UPC	prefix
+80.58.0.0/15	RIMA	prefix
+80.60.0.0/15	Planet	prefix
+80.62.0.0/15	TDC	prefix
+80.96.0.0/15	RNC	prefix
+80.98.0.0/15	UPC	prefix
+80.100.0.0/15	XS4ALL	prefix
+80.102.0.0/15	Uni2	prefix
+80.104.0.0/15	Interb	prefix
+80.106.0.0/15	HELLENIC	prefix
+80.108.0.0/14	UPC	prefix
+80.116.0.0/15	Interb	prefix
+80.118.0.0/15	LDCOM	prefix
+80.120.0.0/14	AON	prefix
+80.128.0.0/11	Deutsche Telekom	prefix
+80.160.0.0/13	TDC	prefix
+80.168.0.0/16	Clara	prefix
+80.169.0.0/16	COLT	prefix
+80.170.0.0/16	Tele2	prefix
+80.171.0.0/16	Hanse	prefix
+80.172.0.0/16	Clara	prefix
+80.173.0.0/16	ONO	prefix
+80.175.0.0/16	NewNet	prefix
+80.176.0.0/15	Demon	prefix
+80.180.0.0/14	Interb	prefix
+80.192.0.0/14	Telewest	prefix
+80.196.0.0/14	TDC	prefix
+80.200.0.0/15	Skynet	prefix
+80.202.0.0/15	NextGenTel	prefix
+80.204.0.0/14	Interb	prefix
+80.208.0.0/14	Sektornet	prefix
+80.212.0.0/15	Telenor	prefix
+80.216.0.0/15	Com Hem	prefix
+80.218.0.0/15	Cablecom	prefix
+80.220.0.0/14	Sonera	prefix
+80.228.0.0/16	EWE TEL	prefix
+80.229.0.0/16	PlusNet	prefix
+80.230.0.0/16	Smile	prefix
+80.231.0.0/16	TATA	prefix
+81.20.208.0/20	NordNet	prefix
+81.221.0.0/16	green.ch	prefix
+81.223.0.0/16	UPC	prefix
+81.224.0.0/12	Telia	prefix
+81.240.0.0/14	Belgacom	prefix
+81.244.0.0/14	Belgacom	prefix
+81.248.0.0/13	France Telecom	prefix
+82.0.0.0/11	NTL	prefix
+82.32.0.0/12	Telewest	prefix
+82.48.0.0/12	Interb	prefix
+82.64.0.0/14	ProXad	prefix
+82.68.0.0/14	Zen	prefix
+82.72.0.0/14	Ziggo	prefix
+82.88.0.0/14	Interb	prefix
+82.92.0.0/14	XS4ALL	prefix
+82.120.0.0/13	France Telecom	prefix
+82.168.0.0/14	Green	prefix
+82.224.0.0/11	ProXad	prefix
+83.0.0.0/11	TPNET	prefix
+83.32.0.0/11	RIMA	prefix
+83.72.0.0/14	Tele2	prefix
+83.76.0.0/14	Swisscom	prefix
+83.80.0.0/13	Ziggo	prefix
+83.88.0.0/13	TDC	prefix
+83.112.0.0/14	Wanadoo	prefix
+83.116.0.0/14	Wanadoo	prefix
+83.152.0.0/13	Free SAS	prefix
+83.160.0.0/14	XS4ALL	prefix
+83.176.0.0/12	Tele2	prefix
+83.192.0.0/13	FT	prefix
+83.200.0.0/14	FT	prefix
+83.204.0.0/15	FT	prefix
+84.0.0.0/14	T-Com	prefix
+84.4.0.0/14	Cege	prefix
+84.24.0.0/13	Ziggo	prefix
+84.56.0.0/13	ARCOR	prefix
+84.64.0.0/13	Energis	prefix
+84.72.0.0/14	Cablecom	prefix
+84.80.0.0/13	KPN	prefix
+84.96.0.0/13	LDCOM	prefix
+84.104.0.0/14	Ziggo	prefix
+84.112.0.0/14	UPC	prefix
+84.128.0.0/10	Deutsche Telekom	prefix
+84.192.0.0/13	Telenet	prefix
+84.208.0.0/13	GET Norway	prefix
+84.216.0.0/14	LaNet	prefix
+84.220.0.0/14	Tiscali	prefix
+85.144.0.0/13	Wanadoo	prefix
+85.164.0.0/14	Telenor	prefix
+85.168.0.0/14	Numericable	prefix
+85.176.0.0/13	Hanse	prefix
+85.224.0.0/13	B2-SE	prefix
+85.240.0.0/13	Telepac	prefix
+86.0.0.0/11	NTL	prefix
+86.64.0.0/12	Gaoland	prefix
+86.80.0.0/12	Direct ADSL	prefix
+86.96.0.0/14	ET,AE	prefix
+86.128.0.0/10	BT	prefix
+86.192.0.0/11	France Telecom	prefix
+87.0.0.0/11	T-Italia	prefix
+87.32.0.0/12	HEAnet	prefix
+87.48.0.0/12	TDC	prefix
+87.64.0.0/14	Skynet	prefix
+87.68.0.0/14	Smile	prefix
+87.78.0.0/15	NC	prefix
+87.80.0.0/13	Easynet	prefix
+87.88.0.0/14	Bouygues	prefix
+87.92.0.0/14	DNA	Oy	prefix
+87.112.0.0/14	PlusNet	prefix
+87.128.0.0/10	Deutsche Telekom	prefix
+87.208.0.0/13	Tele2	prefix
+88.0.0.0/11	RIMA	prefix
+88.32.0.0/11	Interb	prefix
+88.64.0.0/12	ARCOR	prefix
+88.120.0.0/13	ProXad	prefix
+88.160.0.0/11	ProXad	prefix
+89.0.0.0/15	NC	prefix
+89.2.0.0/15	Numericable	prefix
+89.12.0.0/14	O2 DE	prefix
+89.16.0.0/19	Outremer Telecom	prefix
+89.224.0.0/14	CompleTel	prefix
+90.0.0.0/9	France Telecom Orange	prefix
+90.128.0.0/12	Tele2	prefix
+90.160.0.0/12	France Telecom ES	prefix
+90.176.0.0/13	O2 CZ	prefix
+90.192.0.0/11	BSkyB	prefix
+90.224.0.0/12	Telia	prefix
+90.240.0.0/12	Energis	prefix
+91.0.0.0/10	Deutsche Telekom	prefix
+91.64.0.0/14	Kabel DE	prefix
+91.72.0.0/14	EITC	prefix
+91.76.0.0/14	MTU	prefix
+91.104.0.0/13	Range2	prefix
+91.104.0.0/13	Range2	prefix
+91.112.0.0/14	A1	prefix
+91.128.0.0/14	Tele2	prefix
+91.152.0.0/13	Elisa Oyj	prefix
+91.152.0.0/13	Elisa Oyj	prefix
+91.160.0.0/12	Free SAS	prefix
+91.176.0.0/14	Skynet	prefix
+91.180.0.0/14	Skynet	prefix
+92.0.0.0/11	Opal	prefix
+92.32.0.0/14	B2	prefix
+92.49.64.0/18	Outremer	prefix
+92.64.0.0/13	KPN	prefix
+92.72.0.0/13	ARCOR	prefix
+92.88.0.0/13	SFR	prefix
+92.104.0.0/14	Swisscom	prefix
+92.108.0.0/14	UPC	prefix
+92.128.0.0/11	FT Orange	prefix
+92.160.0.0/11	FT	prefix
+92.192.0.0/11	QSC	prefix
+92.224.0.0/13	Hanse	prefix
+92.232.0.0/13	Telewest	prefix
+93.0.0.0/11	LDCOM	prefix
+93.32.0.0/11	Fastweb	prefix
+93.64.0.0/13	Vodafone	prefix
+93.72.0.0/13	Volia	prefix
+93.128.0.0/13	O2 DE	prefix
+93.160.0.0/13	TDC	prefix
+93.192.0.0/10	Deutsche Telekom	prefix
+96.0.0.0/6	ARIN	prefix
+96.64.0.0/11	Comcast	prefix
+96.96.0.0/12	Comcast	prefix
+96.112.0.0/13	Comcast	prefix
+96.120.0.0/14	Comcast	prefix
+96.128.0.0/10	Comcast	prefix
+96.192.0.0/11	Comcast	prefix
+96.224.0.0/11	Verizon	prefix
+97.0.0.0/10	Verizon	prefix
+97.128.0.0/9	Verizon	prefix
+98.32.0.0/11	Comcast	prefix
+98.64.0.0/11	BellSouth	prefix
+98.160.0.0/11	Cox	prefix
+98.192.0.0/10	Comcast	prefix
+99.0.0.0/9	ATT	prefix
+99.128.0.0/10	ATT	prefix
+99.208.0.0/12	Rogers	prefix
+99.224.0.0/11	Rogers	prefix
+100.0.0.0/8	ARIN	prefix
+101.0.0.0/8	APNIC	prefix
+102.0.0.0/8	AfriNIC	prefix
+103.0.0.0/8	APNIC	prefix
+104.0.0.0/8	ARIN	prefix
+105.0.0.0/8	AfriNIC	prefix
+106.0.0.0/8	APNIC	prefix
+107.0.0.0/8	ARIN	prefix
+108.0.0.0/8	ARIN	prefix
+108.0.0.0/11	Verizon	prefix
+108.32.0.0/12	Verizon	prefix
+108.48.0.0/13	Verizon	prefix
+108.64.0.0/11	ATT	prefix
+108.96.0.0/11	Sprint	prefix
+108.192.0.0/10	ATT	prefix
+109.0.0.0/8	RIPE	prefix
+110.0.0.0/7	APNIC	prefix
+112.0.0.0/4	APNIC	prefix
+127.0.0.0/8	IANA - Loopback	prefix
+128.0.0.0/6	ARIN	prefix
+128.143.0.0/16	UVA	prefix
+128.173.0.0/16	Virginia Tech	prefix
+132.0.0.0/8	ARIN	prefix
+132.199.0.0/16	DFN	prefix
+133.0.0.0/8	APNIC	prefix
+134.0.0.0/7	ARIN	prefix
+134.114.0.0/16	NAU	prefix
+134.129.0.0/16	NODAK	prefix
+135.196.0.0/16	Viatel	prefix
+135.220.0.0/14	Lucent	prefix
+135.224.0.0/11	Lucent	prefix
+136.0.0.0/6	ARIN	prefix
+137.54.0.0/16	UVA	prefix
+140.0.0.0/8	ARIN	prefix
+141.0.0.0/8	RIPE	prefix
+142.0.0.0/7	ARIN	prefix
+143.4.0.0/14	P&G	prefix
+143.8.0.0/13	P&G	prefix
+143.16.0.0/12	P&G	prefix
+143.32.0.0/13	P&G	prefix
+144.0.0.0/8	ARIN	prefix
+145.0.0.0/8	RIPE	prefix
+146.0.0.0/7	ARIN	prefix
+148.0.0.0/7	ARIN	prefix
+148.12.0.0/14	DoD	prefix
+148.16.0.0/12	DoD	prefix
+148.32.0.0/12	DoD	prefix
+149.7.96.128/25	TMG	prefix
+150.0.0.0/8	APNIC	prefix
+151.0.0.0/8	RIPE	prefix
+152.0.0.0/8	ARIN	prefix
+153.0.0.0/8	APNIC	prefix
+154.0.0.0/8	AfriNIC	prefix
+155.0.0.0/8	ARIN	prefix
+156.0.0.0/6	ARIN	prefix
+160.0.0.0/6	ARIN	prefix
+164.0.0.0/6	ARIN	prefix
+164.132.0.0/16	IUnet	prefix
+165.166.0.0/16	Spirit	prefix
+166.128.0.0/9	SPC	prefix
+168.0.0.0/7	ARIN	prefix
+168.226.0.0/16	TEA	prefix
+169.64.0.0/10	JPMorgan	prefix
+170.0.0.0/8	ARIN	prefix
+170.51.0.0/16	AMX	prefix
+171.0.0.0/8	APNIC	prefix
+171.128.0.0/10	BoA	prefix
+171.192.0.0/13	BoA	prefix
+171.200.0.0/14	BoA	prefix
+172.0.0.0/7	ARIN	prefix
+172.192.0.0/12	AOL	prefix
+172.208.0.0/13	AOL	prefix
+173.96.0.0/11	Sprint	prefix
+173.128.0.0/11	Sprint	prefix
+174.0.0.0/8	ARIN	prefix
+174.160.0.0/11	Comcast	prefix
+174.192.0.0/10	Verizon	prefix
+175.0.0.0/8	APNIC	prefix
+176.0.0.0/8	RIPE	prefix
+177.0.0.0/8	LACNIC	prefix
+178.0.0.0/8	RIPE	prefix
+179.0.0.0/8	LACNIC	prefix
+180.0.0.0/8	APNIC	prefix
+181.0.0.0/8	LACNIC	prefix
+182.0.0.0/7	APNIC	prefix
+184.0.0.0/8	ARIN	prefix
+184.192.0.0/10	Sprint	prefix
+185.0.0.0/8	RIPE	prefix
+186.0.0.0/7	LACNIC	prefix
+188.0.0.0/8	RIPE	prefix
+189.0.0.0/8	LACNIC	prefix
+189.32.0.0/14	Virt	prefix
+189.60.0.0/14	Virt	prefix
+189.64.0.0/14	TIM	prefix
+189.72.0.0/14	BrasT	prefix
+189.80.0.0/14	Telem	prefix
+189.92.0.0/14	Claro	prefix
+189.100.0.0/14	Virt	prefix
+189.104.0.0/14	Telem	prefix
+189.116.0.0/14	TIM	prefix
+189.120.0.0/14	Virt	prefix
+189.128.0.0/10	Reduno	prefix
+189.192.0.0/13	Mega Cable	prefix
+189.208.0.0/12	Axtel	prefix
+189.224.0.0/11	Reduno	prefix
+190.0.0.0/7	LACNIC	prefix
+192.0.0.0/8	ARIN	prefix
+193.0.0.0/8	RIPE	prefix
+194.0.0.0/7	RIPE	prefix
+196.0.0.0/7	AfriNIC	prefix
+196.0.0.0/16	Uganda Telecom	prefix
+196.8.0.0/16	Standard Bank	prefix
+196.9.0.0/16	Ariviakom	prefix
+196.16.0.0/14	Infoplan	prefix
+196.36.0.0/14	Internet Solutions	prefix
+197.80.0.0/13	MWEB	prefix
+197.120.0.0/13	ETISALAT	prefix
+197.128.0.0/14	Maroc Telecom	prefix
+197.132.0.0/14	Vodafone Egypt	prefix
+197.160.0.0/13	Link Egypt	prefix
+197.168.0.0/13	Cellc	prefix
+197.176.0.0/13	Safaricom	prefix
+197.249.0.0/16	TVCabo Mozambique	prefix
+197.251.0.0/17	Sudanese UIN	prefix
+197.252.0.0/16	Sudatel	prefix
+197.253.0.0/18	MainOne	prefix
+197.253.64.0/18	Ghana Government	prefix
+197.253.128.0/17	Meditel	prefix
+197.254.0.0/17	Access Kenya	prefix
+198.0.0.0/8	ARIN	prefix
+198.82.0.0/16	Virginia Tech	prefix
+199.0.0.0/8	ARIN	prefix
+199.128.0.0/11	USDA	prefix
+200.0.0.0/7	LACNIC	prefix
+202.0.0.0/7	APNIC	prefix
+204.0.0.0/6	ARIN	prefix
+205.0.0.0/11	DoD	prefix
+205.32.0.0/12	DoD	prefix
+205.48.0.0/13	DoD	prefix
+205.64.0.0/11	Navy	prefix
+205.96.0.0/12	Navy	prefix
+205.56.0.0/13	Navy	prefix
+205.112.0.0/14	Navy	prefix
+208.0.0.0/7	ARIN	prefix
+208.0.0.0/11	Sprint	prefix
+208.32.0.0/14	Sprint	prefix
+208.192.0.0/10	Verizon	prefix
+210.0.0.0/7	APNIC	prefix
+212.0.0.0/7	RIPE	prefix
+214.0.0.0/7	US-DOD	prefix
+216.0.0.0/8	ARIN	prefix
+217.0.0.0/8	RIPE	prefix
+217.0.0.0/13	Deutsche Telekom	prefix
+217.32.0.0/12	BT	prefix
+217.48.0.0/14	Telefonica Deutschland	prefix
+217.56.0.0/14	Inter	prefix
+217.80.0.0/12	Deutsche Telekom	prefix
+217.96.0.0/14	TPNET	prefix
+217.120.0.0/14	Ziggo	prefix
+217.164.0.0/15	Emirates	prefix
+217.176.0.0/13	RM Education	prefix
+217.184.0.0/13	mediaWays	prefix
+217.200.0.0/14	TIM	prefix
+217.204.0.0/14	Easynet	prefix
+217.208.0.0/13	Telia	prefix
+217.224.0.0/11	Deutsche Telekom	prefix
+218.0.0.0/7	APNIC	prefix
+220.0.0.0/6	APNIC	prefix
+224.0.0.0/4	Multicast	prefix
+240.0.0.0/4	Future use	prefix

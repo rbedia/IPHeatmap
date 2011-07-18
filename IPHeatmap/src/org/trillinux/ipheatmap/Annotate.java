@@ -19,6 +19,7 @@
 package org.trillinux.ipheatmap;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class Annotate {
 
-	public List<Annotation> readLabelFile(String file) throws IOException {
+	public List<Annotation> readLabelFile(File file) throws IOException {
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		FileReader fileReader = new FileReader(file);
 		BufferedReader reader = new BufferedReader(fileReader);

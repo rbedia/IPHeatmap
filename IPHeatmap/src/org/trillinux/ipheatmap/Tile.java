@@ -33,14 +33,17 @@ public class Tile {
 
 	private File ipDir;
 	private File cacheDir;
+	private File labelFile;
 	
 	/**
 	 * 
 	 * @param ipDir The directory containing the IP lists
+	 * @param labelFile The file containing IP block labels
 	 * @param cacheDir The directory where generated tiles will be cached
 	 */
-	public Tile(File ipDir, File cacheDir) {
+	public Tile(File ipDir, File labelFile, File cacheDir) {
 		this.ipDir = ipDir;
+		this.labelFile = labelFile;
 		this.cacheDir = cacheDir;
 	}
 
@@ -73,6 +76,7 @@ public class Tile {
 					}
 				}
 			}
+			h.setLabelFile(labelFile);
 			h.start();
 
 			h.saveImage(cacheDir + "/" + z + "/" + x + "-" + y + ".png");
@@ -134,7 +138,8 @@ public class Tile {
 		String type = "hubs";
 		File cacheDir = new File("/home/rafael/crawler/tile-cache/" + type);
 		File ipDir = new File("/home/rafael/crawler/" + type);
-		Tile tile = new Tile(ipDir, cacheDir);
+		File labelFile = new File("/home/rafael/crawler/network-labels.txt");
+		Tile tile = new Tile(ipDir, labelFile, cacheDir);
 		tile.generate(0, 0, 9, null);
 
 		System.out.println((System.currentTimeMillis() - now) / 1000.0);

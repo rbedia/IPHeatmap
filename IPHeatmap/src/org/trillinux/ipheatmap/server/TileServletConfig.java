@@ -29,6 +29,7 @@ public class TileServletConfig {
 
 	private File ipDir;
 	private File cacheDir;
+	private File labelFile;
 	private String name;
 	private boolean cache = true;
 	
@@ -38,15 +39,20 @@ public class TileServletConfig {
 	 * @param cacheDir the directory where tiles will be cached
 	 * @param name the name of the tile set
 	 */
-	public TileServletConfig(File ipDir, File cacheDir, String name) {
+	public TileServletConfig(File ipDir, File labelFile, File cacheDir, String name) {
 		super();
 		this.ipDir = ipDir;
+		this.labelFile = labelFile;
 		this.cacheDir = cacheDir;
 		this.name = name;
 	}
 
 	public File getIpDir() {
 		return ipDir;
+	}
+
+	public File getLabelFile() {
+		return labelFile;
 	}
 
 	public File getCacheDir() {

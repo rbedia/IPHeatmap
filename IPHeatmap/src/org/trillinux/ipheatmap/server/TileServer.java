@@ -40,13 +40,6 @@ public class TileServer {
 		this.configs = configs;
 	}
 
-	private TileServlet createTileServlet(TileServletConfig config) {
-		TileServlet tileServlet = new TileServlet(config.getIpDir(), config.getCacheDir());
-		tileServlet.setCache(config.isCache());
-		
-		return tileServlet;
-	}
-	
 	public void go() throws Exception {
 		Server server = new Server(8080);
 
@@ -57,7 +50,7 @@ public class TileServer {
 		tileHandler.setContextPath("/tile");
 		
 		for (TileServletConfig config : configs) {
-			tileHandler.addServlet(new ServletHolder(createTileServlet(config)), "/" + config.getName());
+			tileHandler.addServlet(new ServletHolder(new TileServlet(config)), "/" + config.getName());
 		}
 
 		rootHandler.addHandler(tileHandler);
@@ -87,11 +80,13 @@ public class TileServer {
 
 		configs[0] = new TileServletConfig(
 			new File("/home/rafael/crawler/hubs"),
+			new File("/home/rafael/crawler/network-labels.txt"),
 			new File("/home/rafael/crawler/tile-cache/hubs"),
 			"hubs");
 
 		configs[1] = new TileServletConfig(
 			new File("/home/rafael/crawler/leaves"),
+			new File("/home/rafael/crawler/network-labels.txt"),
 			new File("/home/rafael/crawler/tile-cache/leaves"),
 			"leaves");
 		

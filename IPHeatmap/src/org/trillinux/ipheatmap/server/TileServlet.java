@@ -42,17 +42,14 @@ public class TileServlet extends HttpServlet {
 	
 	private File ipDir;
 	private File cacheDir;
-	
+	private File labelFile;
 	private boolean cache = true;
 	
-	/**
-	 * 
-	 * @param ipDir the directory where the IP lists are stored
-	 * @param cacheDir the location where cached tiles should be saved
-	 */
-	public TileServlet(File ipDir, File cacheDir) {
-		this.ipDir = ipDir;
-		this.cacheDir = cacheDir;
+	public TileServlet(TileServletConfig config) {
+		this.ipDir = config.getIpDir();
+		this.labelFile = config.getLabelFile();
+		this.cacheDir = config.getCacheDir();
+		this.cache = config.isCache();
 	}
 
 	public void doGet(HttpServletRequest request,
@@ -68,7 +65,7 @@ public class TileServlet extends HttpServlet {
 
 		response.setContentType("image/png");
 		
-		Tile tile = new Tile(ipDir, cacheDir);
+		Tile tile = new Tile(ipDir, labelFile, cacheDir);
 		if (cache && !nocache && tile.tileExists(x, y, z)) {
 			tile.writeCachedTile(x, y, z, output);
 		} else {

@@ -65,6 +65,8 @@ public class IPMap {
 	
 	private int maxCount = 0;
 	
+	private File labelFile = new File("network-labels.txt");
+	
 	/**
 	 * Creates an IP heatmap. 
 	 * 
@@ -172,7 +174,6 @@ public class IPMap {
 		
 		Annotate annotate = new Annotate();
 		
-		String labelFile = "/home/rafael/crawler/network-labels.txt";
 		List<Annotation> annotations = annotate.readLabelFile(labelFile);
 		drawLabels(annotations);
 	}
@@ -314,7 +315,19 @@ public class IPMap {
 		
 		return font;
 	}
-	
+
+	public Point getOffset() {
+		return offset;
+	}
+
+	public File getLabelFile() {
+		return labelFile;
+	}
+
+	public void setLabelFile(File labelFile) {
+		this.labelFile = labelFile;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -328,10 +341,6 @@ public class IPMap {
 		h.saveImage("test.png");
 		
 		System.out.println((System.currentTimeMillis() - now) / 1000.0);
-	}
-
-	public Point getOffset() {
-		return offset;
 	}
 
 }
