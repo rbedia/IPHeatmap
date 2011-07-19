@@ -18,10 +18,20 @@
  */
 package org.trillinux.ipheatmap;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Loads the mappings from CIDR blocks to files within a directory. An index
+ * file is read so that the whole directory does not need to be scanned.
+ * 
+ * @author Rafael Bedia
+ *
+ */
 public class IPListLoader {
 	File ipDir;
 
@@ -30,19 +40,25 @@ public class IPListLoader {
 	}
 	
 	public List<IPMapping> getMappings() {
-		List<IPMapping> mappings = new ArrayList<IPMapping>();
-		searchDirectory(ipDir, mappings);
-		return mappings;
+		return readIndex();
 	}
 	
-	public void searchDirectory(File file, List<IPMapping> mappings) {
-		if (file.isDirectory()) {
-			for (File child : file.listFiles()) {
-				searchDirectory(child, mappings);
+	public List<IPMapping> readIndex() {
+		List<IPMapping> mappings = new ArrayList<IPMapping>();
+		try {
+			FileReader in = new FileReader(new File(ipDir, "index.txt"));
+			BufferedReader br = new BufferedReader(in);
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] parts = line.split("\t");
+				CIDR cidr = CIDR.cidr_parse(parts[0]);
+				mappings.add(new IPMapping(cidr, new File(ipDir, parts[1])));
 			}
-		} else {
-			CIDR cidr = CIDR.cidr_parse(file.getName().replace('-', '/'));
-			mappings.add(new IPMapping(cidr, file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		return mappings;
 	}
 }

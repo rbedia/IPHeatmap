@@ -61,6 +61,7 @@ public class IPSplitter {
 		BufferedReader reader = new BufferedReader(new FileReader(input));
 		String line;
 		String previousKey = "";
+		FileWriter indexWriter = new FileWriter(new File(directory, "index.txt"));
 		FileWriter out = null;
 		
 		while ((line = reader.readLine()) != null) {
@@ -75,9 +76,11 @@ public class IPSplitter {
 				level1.mkdir();
 				int mask = 16;
 				String filename = String.format("%s.%s.0.0-%d", parts[0], parts[1], mask);
-				File level2 = new File(level1, filename);
+				File ipFile = new File(level1, filename);
+				out = new FileWriter(ipFile);
 				
-				out = new FileWriter(level2);
+				String cidr = String.format("%s.%s.0.0/%d", parts[0], parts[1], mask);
+				indexWriter.append(cidr + '\t' + parts[0] + '/' + filename + '\n');
 			}
 			out.append(line + "\n");
 			previousKey = key;
@@ -85,6 +88,7 @@ public class IPSplitter {
 		if (out != null) {
 			out.close();
 		}
+		indexWriter.close();
 	}
 
 	/**
