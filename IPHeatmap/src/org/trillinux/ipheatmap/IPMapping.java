@@ -46,4 +46,9 @@ public class IPMapping {
 		return ipFile;
 	}
 
+	@Override
+	public String toString() {
+		return range + " - " + ipFile;
+	}
+	
 }
