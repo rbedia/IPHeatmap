@@ -18,9 +18,10 @@
  */
 package org.trillinux.ipheatmap;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +47,20 @@ public class IPListLoader {
 	public List<IPMapping> readIndex() {
 		List<IPMapping> mappings = new ArrayList<IPMapping>();
 		try {
-			FileReader in = new FileReader(new File(ipDir, "index.txt"));
-			BufferedReader br = new BufferedReader(in);
-			String line;
-			while ((line = br.readLine()) != null) {
-				String[] parts = line.split("\t");
-				CIDR cidr = CIDR.cidr_parse(parts[0]);
-				mappings.add(new IPMapping(cidr, new File(ipDir, parts[1])));
+			FileInputStream fileIn = new FileInputStream(new File(ipDir, "index.txt"));
+			DataInputStream in = new DataInputStream(fileIn);
+			
+			try {
+				while(true) {
+					long start = in.readLong();
+					long end = in.readLong();
+					int mask = in.readInt();
+					CIDR cidr = CIDR.cidr_parse(start, end, mask);
+					String filePath = in.readUTF();
+					mappings.add(new IPMapping(cidr, new File(ipDir, filePath)));
+				}
+			} catch (EOFException ex) {
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

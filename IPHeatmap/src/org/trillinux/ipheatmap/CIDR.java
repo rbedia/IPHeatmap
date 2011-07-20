@@ -45,13 +45,21 @@ public class CIDR {
 		
 		String[] parts = input.split("/");
 		
-		long ip = IPUtil.ipToLong(parts[0]);
+		int ip = IPUtil.ipToLong(parts[0]);
 		cidr.mask = Integer.parseInt(parts[1]);
 		cidr.start = ip;
 		
-		long maskBits = 0xFFFFFFFF;
-		cidr.end = ip | (maskBits >> cidr.mask);
+		long maskBits = 0xFFFFFFFFl;
+		cidr.end = ((long) ip) | (maskBits >> cidr.mask);
 		
+		return cidr;
+	}
+
+	public static CIDR cidr_parse(long start, long end, int mask) {
+		CIDR cidr = new CIDR();
+		cidr.start = start;
+		cidr.mask = mask;
+		cidr.end = end;
 		return cidr;
 	}
 	

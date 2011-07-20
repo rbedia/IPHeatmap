@@ -24,9 +24,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -217,23 +218,25 @@ public class IPMap {
 		for (IPMapping iplist : iplists) {
 			BBox ipBox = bboxUtil.bounding_box(iplist.getRange());
 			if (subset.overlaps(ipBox)) {
-				FileReader fileReader = new FileReader(iplist.getIpFile());
-				BufferedReader reader = new BufferedReader(fileReader);
-				String line;
+				FileInputStream fileIn = new FileInputStream(iplist.getIpFile());
+				DataInputStream in = new DataInputStream(fileIn);
 				
-				while ((line = reader.readLine()) != null) {
-					long ip = IPUtil.ipToLong(line);
-					ip >>= addr_space_bits_per_pixel;
-					Point p = Hilbert.hil_xy_from_s(ip, hilbert_curve_order);
-					remapPoint(p);
-					if (pointInImage(p)) {
-						ipCounts[p.x][p.y]++;
-						if (ipCounts[p.x][p.y] > maxCount) {
-							maxCount = ipCounts[p.x][p.y]; 
+				try {
+					while (true) {
+						long ip = in.readLong();
+						ip >>= addr_space_bits_per_pixel;
+						Point p = Hilbert.hil_xy_from_s(ip, hilbert_curve_order);
+						remapPoint(p);
+						if (pointInImage(p)) {
+							ipCounts[p.x][p.y]++;
+							if (ipCounts[p.x][p.y] > maxCount) {
+								maxCount = ipCounts[p.x][p.y]; 
+							}
 						}
 					}
+				} catch (EOFException ex) {
 				}
-				reader.close();
+				in.close();
 			}
 		}
 	}

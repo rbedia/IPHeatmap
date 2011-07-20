@@ -19,12 +19,17 @@
 package org.trillinux.ipheatmap.iplist;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.trillinux.ipheatmap.CIDR;
+import org.trillinux.ipheatmap.IPUtil;
 
 /**
  * Splits a file containing a list of IPs into multiple files based on the first
@@ -61,8 +66,9 @@ public class IPSplitter {
 		BufferedReader reader = new BufferedReader(new FileReader(input));
 		String line;
 		String previousKey = "";
-		FileWriter indexWriter = new FileWriter(new File(directory, "index.txt"));
-		FileWriter out = null;
+		FileOutputStream fileIndexOut = new FileOutputStream(new File(directory, "index.txt"));
+		DataOutputStream indexOut = new DataOutputStream(fileIndexOut);
+		DataOutputStream out = null;
 		
 		while ((line = reader.readLine()) != null) {
 			String[] parts = line.split("\\.");
@@ -77,18 +83,23 @@ public class IPSplitter {
 				int mask = 16;
 				String filename = String.format("%s.%s.0.0-%d", parts[0], parts[1], mask);
 				File ipFile = new File(level1, filename);
-				out = new FileWriter(ipFile);
+				FileOutputStream fileOut = new FileOutputStream(ipFile);
+				out = new DataOutputStream(fileOut);
 				
-				String cidr = String.format("%s.%s.0.0/%d", parts[0], parts[1], mask);
-				indexWriter.append(cidr + '\t' + parts[0] + '/' + filename + '\n');
+				String cidrStr = String.format("%s.%s.0.0/%d", parts[0], parts[1], mask);
+				CIDR cidr = CIDR.cidr_parse(cidrStr);
+				indexOut.writeLong(cidr.start);
+				indexOut.writeLong(cidr.end);
+				indexOut.writeInt(cidr.mask);
+				indexOut.writeUTF(parts[0] + '/' + filename);
 			}
-			out.append(line + "\n");
+			out.writeLong(IPUtil.ipToLong(line));
 			previousKey = key;
 		}
 		if (out != null) {
 			out.close();
 		}
-		indexWriter.close();
+		indexOut.close();
 	}
 
 	/**
