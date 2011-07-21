@@ -5,6 +5,12 @@
 	<artifactId>ipheatmap</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>IPHeatmap</name>
+	<licenses>
+		<license>
+			<name>GNU General Public License, Version 2.0</name>
+			<url>LICENSE</url>
+		</license>
+	</licenses>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
