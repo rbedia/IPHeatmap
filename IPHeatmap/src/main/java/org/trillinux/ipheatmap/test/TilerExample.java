@@ -1,5 +1,7 @@
 package org.trillinux.ipheatmap.test;
 
+import java.io.File;
+
 import org.trillinux.ipheatmap.Tiler;
 
 public class TilerExample {
@@ -14,8 +16,10 @@ public class TilerExample {
 		String outputDir = "/home/rafael/crawler/new-leaves-tiles/";
 		String labelFile = "/home/rafael/crawler/network-labels.txt";
 		
-		String[] inputs = {ipDir, outputDir, labelFile};
-		Tiler.main(inputs);
+//		String[] inputs = {ipDir, outputDir, labelFile};
+//		Tiler.main(inputs);
+		Tiler tiler = new Tiler(new File(ipDir), new File(labelFile), new File(outputDir));
+		tiler.generateLevel(4);
 		
 		System.out.println((System.currentTimeMillis() - now) / 1000.0);
 	}
