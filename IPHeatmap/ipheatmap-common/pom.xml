@@ -9,7 +9,6 @@
   </parent>
   <groupId>org.trillinux.ipheatmap.common</groupId>
   <artifactId>ipheatmap-common</artifactId>
-  <version>${parent.version}</version>
   <name>ipheatmap-common</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

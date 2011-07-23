@@ -9,7 +9,6 @@
   </parent>
   <groupId>org.trillinux.ipheatmap.server</groupId>
   <artifactId>ipheatmap-server</artifactId>
-  <version>${parent.version}</version>
   <name>ipheatmap-server</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,7 +47,7 @@
     <dependency>
     	<groupId>org.trillinux.ipheatmap.common</groupId>
     	<artifactId>ipheatmap-common</artifactId>
-    	<version>${parent.version}</version>
+    	<version>${project.parent.version}</version>
     </dependency>
   </dependencies>
 </project>
