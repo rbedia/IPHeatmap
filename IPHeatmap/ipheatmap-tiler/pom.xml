@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>ipheatmap</artifactId>
+    <groupId>org.trillinux.ipheatmap</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>org.trillinux.ipheatmap.tiler</groupId>
+  <artifactId>ipheatmap-tiler</artifactId>
+  <version>${parent.version}</version>
+  <name>ipheatmap-tiler</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+    	<groupId>org.trillinux.ipheatmap.common</groupId>
+    	<artifactId>ipheatmap-common</artifactId>
+    	<version>${parent.version}</version>
+    </dependency>
+  </dependencies>
+</project>
