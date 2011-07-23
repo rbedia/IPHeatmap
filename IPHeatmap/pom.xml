@@ -21,8 +21,8 @@
 	</issueManagement>
 	<scm>
 		<url>https://github.com/rbedia/IPHeatmap</url>
-		<connection>scm:git:git://github.com/rbedia/IPHeatmap.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/rbedia/IPHeatmap.git</developerConnection>
+		<connection>scm:git:git@github.com:rbedia/IPHeatmap.git</connection>
+		<developerConnection>scm:git:git@github.com:rbedia/IPHeatmap.git</developerConnection>
 	</scm>
 	<developers>
 		<developer>
