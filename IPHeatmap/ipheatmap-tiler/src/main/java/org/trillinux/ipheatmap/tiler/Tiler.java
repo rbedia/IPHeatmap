@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2011 Rafael Bedia
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package org.trillinux.ipheatmap.tiler;
 
 import java.awt.Point;
@@ -9,7 +27,11 @@ import org.trillinux.ipheatmap.common.IPListLoader;
 import org.trillinux.ipheatmap.common.IPMap;
 import org.trillinux.ipheatmap.common.IPUtil;
 
-
+/**
+ * Creates all of the tiles needed for a static deploy of the IPHeatmap.
+ * 
+ * @author Rafael Bedia
+ */
 public class Tiler {
 
 	private File ipDir;
@@ -18,6 +40,13 @@ public class Tiler {
 	
 	private File outputDir;
 	
+	/**
+	 * Initializes the Tiler with the input and output locations.
+	 * 
+	 * @param ipDir the directory that stores IP lists. Use IPSplitter to generate.
+	 * @param labelFile IP block label file
+	 * @param outputDir directory to store the generated tiles
+	 */
 	public Tiler(File ipDir, File labelFile, File outputDir) {
 		this.ipDir = ipDir;
 		this.labelFile = labelFile;
