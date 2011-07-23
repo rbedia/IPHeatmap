@@ -349,10 +349,10 @@ public class IPMap {
 	 */
 	public static void main(String[] args) throws Exception {
 		long now = System.currentTimeMillis();
-		CIDR cidr = CIDR.cidr_parse("0.0.0.0/2");
+		CIDR cidr = new CIDR("0.0.0.0/2");
 		String file = "/home/rafael/crawler/hubs.txt";
 		IPMap h = new IPMap(cidr, 4);
-		h.addIPMapping(new IPMapping(CIDR.cidr_parse("0.0.0.0/0"), new File(file)));
+		h.addIPMapping(new IPMapping(new CIDR("0.0.0.0/0"), new File(file)));
 		h.start();
 		h.saveImage(new File("test.png"));
 		

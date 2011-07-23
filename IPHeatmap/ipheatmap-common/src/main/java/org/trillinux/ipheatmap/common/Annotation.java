@@ -27,7 +27,7 @@ public class Annotation {
 
 	public Annotation(String cidr, String label, String sublabel) {
 		super();
-		this.cidr = CIDR.cidr_parse(cidr);
+		this.cidr = new CIDR(cidr);
 		this.label = label;
 		this.sublabel = sublabel;
 	}

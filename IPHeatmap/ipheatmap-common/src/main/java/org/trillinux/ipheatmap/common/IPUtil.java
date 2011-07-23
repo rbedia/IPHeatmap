@@ -26,9 +26,19 @@ package org.trillinux.ipheatmap.common;
  */
 public class IPUtil {
 
-	public static int ipToLong(final String addr) {
+	/**
+	 * Converts the text form of an IP address to an integer.
+	 * 
+	 * @param addr
+	 * @return
+	 */
+	public static int ipToInt(final String addr) {
 		final String[] addressBytes = addr.split("\\.");
 
+		if (addressBytes.length != 4) {
+			throw new IllegalArgumentException("IPs have the format x.x.x.x");
+		}
+		
 		int ip = 0;
 		for (int i = 0; i < 4; i++) {
 			ip <<= 8;
@@ -37,6 +47,12 @@ public class IPUtil {
 		return ip;
 	}
 
+	/**
+	 * Converts an integer IP address into its text form.
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public static String intToIp(int i) {
         return ((i >> 24 ) & 0xFF) + "." +
                ((i >> 16 ) & 0xFF) + "." +

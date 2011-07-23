@@ -40,36 +40,60 @@ public class CIDR {
 		mask = cidr.mask;
 	}
 
-	public static CIDR cidr_parse(String input) {
-		CIDR cidr = new CIDR();
-		
-		String[] parts = input.split("/");
-		
-		int ip = IPUtil.ipToLong(parts[0]);
-		cidr.mask = Integer.parseInt(parts[1]);
-		cidr.start = ip;
-		
-		long maskBits = 0xFFFFFFFFl;
-		cidr.end = ((long) ip) | (maskBits >> cidr.mask);
-		
-		return cidr;
-	}
-
-	public static CIDR cidr_parse(long start, long end, int mask) {
-		CIDR cidr = new CIDR();
-		cidr.start = start;
-		cidr.mask = mask;
-		cidr.end = end;
-		return cidr;
+	public CIDR(long start, long end, int mask) {
+		this.start = start;
+		this.mask = mask;
+		this.end = end;
 	}
 	
+	public CIDR(String input) {
+		String[] parts = input.split("/");
+		
+		int ip = IPUtil.ipToInt(parts[0]);
+		mask = Integer.parseInt(parts[1]);
+		start = ip & 0xFFFFFFFFl;
+		
+		long maskBits = 0xFFFFFFFFl;
+		end = ip & 0xFFFFFFFFl | (maskBits >> mask);
+	}
+
 	public boolean overlaps(CIDR cidr) {
 		return (start <= cidr.start && cidr.start <= end) ||
-			(start <= cidr.end && cidr.end <= end);
+				(start <= cidr.end && cidr.end <= end) ||
+				(cidr.start <= start && start <= cidr.end) || 
+				(cidr.start <= end && end <= cidr.end);
 	}
 
 	public String getText() {
 		return IPUtil.intToIp((int) start) + "/" + mask;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (end ^ (end >>> 32));
+		result = prime * result + mask;
+		result = prime * result + (int) (start ^ (start >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CIDR other = (CIDR) obj;
+		if (end != other.end)
+			return false;
+		if (mask != other.mask)
+			return false;
+		if (start != other.start)
+			return false;
+		return true;
 	}
 
 	@Override

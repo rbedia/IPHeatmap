@@ -87,13 +87,13 @@ public class IPSplitter {
 				out = new DataOutputStream(fileOut);
 				
 				String cidrStr = String.format("%s.%s.0.0/%d", parts[0], parts[1], mask);
-				CIDR cidr = CIDR.cidr_parse(cidrStr);
+				CIDR cidr = new CIDR(cidrStr);
 				indexOut.writeLong(cidr.start);
 				indexOut.writeLong(cidr.end);
 				indexOut.writeInt(cidr.mask);
 				indexOut.writeUTF(parts[0] + '/' + filename);
 			}
-			out.writeLong(IPUtil.ipToLong(line));
+			out.writeLong(IPUtil.ipToInt(line));
 			previousKey = key;
 		}
 		if (out != null) {

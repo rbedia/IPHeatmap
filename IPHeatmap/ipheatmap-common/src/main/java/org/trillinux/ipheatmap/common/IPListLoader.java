@@ -55,7 +55,7 @@ public class IPListLoader {
 					long start = in.readLong();
 					long end = in.readLong();
 					int mask = in.readInt();
-					CIDR cidr = CIDR.cidr_parse(start, end, mask);
+					CIDR cidr = new CIDR(start, end, mask);
 					String filePath = in.readUTF();
 					mappings.add(new IPMapping(cidr, new File(ipDir, filePath)));
 				}

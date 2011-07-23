@@ -69,7 +69,7 @@ public class Tiler {
 				String cidrStr = IPUtil.intToIp(subnet) + "/" + maskBits;
 				System.out.println(cidrStr);
 	
-				CIDR cidr = CIDR.cidr_parse(cidrStr);
+				CIDR cidr = new CIDR(cidrStr);
 				IPMap h = new IPMap(cidr, 16 - maskBits);
 				
 				IPListLoader loader = new IPListLoader(ipDir);

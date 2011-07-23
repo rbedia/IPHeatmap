@@ -20,6 +20,12 @@ package org.trillinux.ipheatmap.common;
 
 import java.awt.Point;
 
+/**
+ * Defines a rectangular area bounded by the points in the lower left and upper
+ * right.
+ * 
+ * @author Rafael Bedia
+ */
 public class BBox {
 	public int xmin;
 	public int xmax;
@@ -35,6 +41,12 @@ public class BBox {
 		ymax = bbox.ymax;
 	}
 	
+	/**
+	 * Decreases the size of the rectangle uniformly on all sides.
+	 * 
+	 * @param xShrink the amount to remove from the left and right sides
+	 * @param yShrink the amount to remove from the top and bottom sides
+	 */
 	public void shrink(int xShrink, int yShrink) {
 		xmin += xShrink;
 		xmax -= xShrink;
@@ -42,14 +54,30 @@ public class BBox {
 		ymax -= yShrink;
 	}
 	
+	/**
+	 * Gets the width of the rectangle.
+	 * 
+	 * @return
+	 */
 	public int getWidth() {
 		return xmax - xmin;
 	}
 	
+	/**
+	 * Gets the height of the rectangle.
+	 * 
+	 * @return
+	 */
 	public int getHeight() {
 		return ymax - ymin;
 	}
 
+	/**
+	 * Moves the rectangle down and to the left by the amount specified in
+	 * offset. Afterwards the rectangle will have the same width and height.
+	 * 
+	 * @param offset
+	 */
 	public void remap(Point offset) {
 		xmin -= offset.x;
 		xmax -= offset.x;
@@ -57,10 +85,22 @@ public class BBox {
 		ymax -= offset.y;
 	}
 	
+	/**
+	 * Checks if the rectangle contains the point p.
+	 * 
+	 * @param p
+	 * @return
+	 */
 	public boolean contains(Point p) {
-		return xmin <= p.x && xmax >= p.x && ymin <= p.y && ymax >= p.y;
+		return xmin <= p.x && p.x <= xmax && ymin <= p.y && p.y <= ymax;
 	}
 	
+	/**
+	 * Checks if box overlaps this bounding box.
+	 * 
+	 * @param box
+	 * @return
+	 */
 	public boolean overlaps(BBox box) {
 		boolean xOverlap = (xmin <= box.xmin && box.xmin <= xmax) || (box.xmin <= xmin && xmin <= box.xmax);
 		boolean yOverlap = (ymin <= box.ymin && box.ymin <= ymax) || (box.ymin <= ymin && ymin <= box.ymax);

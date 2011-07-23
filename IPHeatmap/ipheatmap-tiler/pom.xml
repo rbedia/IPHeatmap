@@ -10,9 +10,6 @@
   <groupId>org.trillinux.ipheatmap.tiler</groupId>
   <artifactId>ipheatmap-tiler</artifactId>
   <name>ipheatmap-tiler</name>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <dependencies>
     <dependency>
     	<groupId>org.trillinux.ipheatmap.common</groupId>

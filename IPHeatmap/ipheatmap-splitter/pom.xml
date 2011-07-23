@@ -11,9 +11,6 @@
 	<groupId>org.trillinux.ipheatmap.splitter</groupId>
 	<artifactId>ipheatmap-splitter</artifactId>
 	<name>ipheatmap-splitter</name>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.trillinux.ipheatmap.common</groupId>
