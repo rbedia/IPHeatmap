@@ -18,6 +18,16 @@
  */
 package org.trillinux.ipheatmap.common;
 
+/**
+ * A network block annotation. An annotation is attached to a network block and
+ * shows a label and a sublabel. The network block is specified in CIDR format.
+ * The label is usually the name of the owner of the network block but it can
+ * be anything. The sublabel is additional information about the network block.
+ * If the sublabel is set to "prefix" then it will show the text form of the
+ * CIDR block that the annotation represents. 
+ * 
+ * @author Rafael Bedia
+ */
 public class Annotation {
 	private CIDR cidr;
 	
@@ -26,34 +36,32 @@ public class Annotation {
 	private String sublabel;
 
 	public Annotation(String cidr, String label, String sublabel) {
-		super();
-		this.cidr = new CIDR(cidr);
+		this(new CIDR(cidr), label, sublabel);
+	}
+
+	public Annotation(CIDR cidr, String label, String sublabel) {
+		this.cidr = cidr;
 		this.label = label;
-		this.sublabel = sublabel;
+		if (sublabel == null) {
+			this.sublabel = "";
+		} else {
+			this.sublabel = sublabel;
+		}
 	}
 
 	public CIDR getCidr() {
 		return cidr;
 	}
 
-	public void setCidr(CIDR cidr) {
-		this.cidr = cidr;
-	}
-
 	public String getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public String getSublabel() {
-		return sublabel;
+		if (sublabel.equals("prefix")) {
+			return cidr.getText();
+		} else {
+			return sublabel;
+		}
 	}
-
-	public void setSublabel(String sublabel) {
-		this.sublabel = sublabel;
-	}
-	
 }

@@ -186,9 +186,7 @@ public class IPMap {
 		// Transparent white for drawing the labels on top of the heatmap
 		g2d.setColor(new Color(255, 255, 255, 120));
 		
-		Annotate annotate = new Annotate();
-		
-		List<Annotation> annotations = annotate.readLabelFile(labelFile);
+		List<Annotation> annotations = Annotate.readLabelFile(labelFile);
 		drawLabels(annotations);
 	}
 	
@@ -267,11 +265,11 @@ public class IPMap {
 				int height = bbox.ymax - bbox.ymin;
 				g2d.drawRect(bbox.xmin, bbox.ymin, width, height);
 				
-				boolean drawSublabel = annotation.getSublabel().equals("prefix");
+				String sublabel = annotation.getSublabel();
 				
 				BBox txtBBox = new BBox(bbox);
 				
-				if (drawSublabel) {
+				if (!sublabel.isEmpty()) {
 					txtBBox.ymax -= (height / 3);
 				}
 				
@@ -283,12 +281,12 @@ public class IPMap {
 					g2d.drawString(annotation.getLabel(), txtBBox.xmin, txtBBox.ymax);
 				}
 				
-				if (drawSublabel) {
+				if (!sublabel.isEmpty()) {
 					BBox subBBox = new BBox(bbox);
 					subBBox.ymin = txtBBox.ymax;
 					subBBox.shrink(2, 1);
 					
-					String text = annotation.getCidr().getText();
+					String text = annotation.getSublabel();
 					Font subFont = getFont(subBBox, text, 12);
 					if (subFont != null) {
 						g2d.setFont(subFont);
@@ -352,6 +350,7 @@ public class IPMap {
 		CIDR cidr = new CIDR("0.0.0.0/2");
 		String file = "/home/rafael/crawler/hubs.txt";
 		IPMap h = new IPMap(cidr, 4);
+		h.setLabelFile(new File("/home/rafael/crawler/network-labels.txt"));
 		h.addIPMapping(new IPMapping(new CIDR("0.0.0.0/0"), new File(file)));
 		h.start();
 		h.saveImage(new File("test.png"));
