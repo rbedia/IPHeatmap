@@ -44,14 +44,18 @@ public class TileServlet extends HttpServlet {
 	private File cacheDir;
 	private File labelFile;
 	private boolean cache = true;
-	
-	public TileServlet(TileServletConfig config) {
-		this.ipDir = config.getIpDir();
-		this.labelFile = config.getLabelFile();
-		this.cacheDir = config.getCacheDir();
-		this.cache = config.isCache();
-	}
 
+	@Override
+    public void init() throws ServletException {
+		ipDir = new File(getServletConfig().getInitParameter("ipDir"));
+		labelFile = new File(getServletConfig().getInitParameter("labelFile"));
+		cacheDir = new File(getServletConfig().getInitParameter("cacheDir"));
+		String cacheStr = getServletConfig().getInitParameter("cache");
+		if (cacheStr != null && cacheStr.equals("false")) {
+			cache = false;
+		}
+    }
+	
 	/**
 	 * Requests come in the form of /z/x/y.png where z, x, y are positive
 	 * integers.
