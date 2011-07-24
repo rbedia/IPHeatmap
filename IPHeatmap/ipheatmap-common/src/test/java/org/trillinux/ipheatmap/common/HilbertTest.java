@@ -37,16 +37,16 @@ public class HilbertTest {
 	public void testOrder1() {
 		Point res;
 		
-		res = Hilbert.hil_xy_from_s(0, 1);
+		res = Hilbert.getPoint(0, 1);
 		assertEquals(new Point(0, 0), res);
 
-		res = Hilbert.hil_xy_from_s(1, 1);
+		res = Hilbert.getPoint(1, 1);
 		assertEquals(new Point(0, 1), res);
 
-		res = Hilbert.hil_xy_from_s(2, 1);
+		res = Hilbert.getPoint(2, 1);
 		assertEquals(new Point(1, 1), res);
 
-		res = Hilbert.hil_xy_from_s(3, 1);
+		res = Hilbert.getPoint(3, 1);
 		assertEquals(new Point(1, 0), res);
 		
 	}
@@ -58,52 +58,52 @@ public class HilbertTest {
 	public void testOrder2() {
 		Point res;
 
-		res = Hilbert.hil_xy_from_s(0, 2);
+		res = Hilbert.getPoint(0, 2);
 		assertEquals(new Point(0, 0), res);
 
-		res = Hilbert.hil_xy_from_s(1, 2);
+		res = Hilbert.getPoint(1, 2);
 		assertEquals(new Point(1, 0), res);
 
-		res = Hilbert.hil_xy_from_s(2, 2);
+		res = Hilbert.getPoint(2, 2);
 		assertEquals(new Point(1, 1), res);
 
-		res = Hilbert.hil_xy_from_s(3, 2);
+		res = Hilbert.getPoint(3, 2);
 		assertEquals(new Point(0, 1), res);
 
-		res = Hilbert.hil_xy_from_s(4, 2);
+		res = Hilbert.getPoint(4, 2);
 		assertEquals(new Point(0, 2), res);
 
-		res = Hilbert.hil_xy_from_s(5, 2);
+		res = Hilbert.getPoint(5, 2);
 		assertEquals(new Point(0, 3), res);
 
-		res = Hilbert.hil_xy_from_s(6, 2);
+		res = Hilbert.getPoint(6, 2);
 		assertEquals(new Point(1, 3), res);
 
-		res = Hilbert.hil_xy_from_s(7, 2);
+		res = Hilbert.getPoint(7, 2);
 		assertEquals(new Point(1, 2), res);
 
-		res = Hilbert.hil_xy_from_s(8, 2);
+		res = Hilbert.getPoint(8, 2);
 		assertEquals(new Point(2, 2), res);
 
-		res = Hilbert.hil_xy_from_s(9, 2);
+		res = Hilbert.getPoint(9, 2);
 		assertEquals(new Point(2, 3), res);
 
-		res = Hilbert.hil_xy_from_s(10, 2);
+		res = Hilbert.getPoint(10, 2);
 		assertEquals(new Point(3, 3), res);
 
-		res = Hilbert.hil_xy_from_s(11, 2);
+		res = Hilbert.getPoint(11, 2);
 		assertEquals(new Point(3, 2), res);
 
-		res = Hilbert.hil_xy_from_s(12, 2);
+		res = Hilbert.getPoint(12, 2);
 		assertEquals(new Point(3, 1), res);
 
-		res = Hilbert.hil_xy_from_s(13, 2);
+		res = Hilbert.getPoint(13, 2);
 		assertEquals(new Point(2, 1), res);
 
-		res = Hilbert.hil_xy_from_s(14, 2);
+		res = Hilbert.getPoint(14, 2);
 		assertEquals(new Point(2, 0), res);
 		
-		res = Hilbert.hil_xy_from_s(15, 2);
+		res = Hilbert.getPoint(15, 2);
 		assertEquals(new Point(3, 0), res);
 		
 	}
@@ -114,16 +114,16 @@ public class HilbertTest {
 	@Test
 	public void testEvenOdd() {
 		Point res;
-		res = Hilbert.hil_xy_from_s(16, 3);
+		res = Hilbert.getPoint(16, 3);
 		assertEquals(new Point(0, 4), res);
 		
-		res = Hilbert.hil_xy_from_s(16, 4);
+		res = Hilbert.getPoint(16, 4);
 		assertEquals(new Point(4, 0), res);
 		
-		res = Hilbert.hil_xy_from_s(16, 5);
+		res = Hilbert.getPoint(16, 5);
 		assertEquals(new Point(0, 4), res);
 		
-		res = Hilbert.hil_xy_from_s(16, 6);
+		res = Hilbert.getPoint(16, 6);
 		assertEquals(new Point(4, 0), res);
 	}
 }

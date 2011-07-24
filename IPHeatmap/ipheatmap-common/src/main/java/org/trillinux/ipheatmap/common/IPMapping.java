@@ -28,27 +28,27 @@ import java.io.File;
  * @author Rafael Bedia
  */
 public class IPMapping {
-	private CIDR range;
-	
-	private File ipFile;
+    private final CIDR range;
 
-	public IPMapping(CIDR range, File ipFile) {
-		super();
-		this.range = range;
-		this.ipFile = ipFile;
-	}
+    private final File ipFile;
 
-	public CIDR getRange() {
-		return range;
-	}
+    public IPMapping(CIDR range, File ipFile) {
+        super();
+        this.range = range;
+        this.ipFile = ipFile;
+    }
 
-	public File getIpFile() {
-		return ipFile;
-	}
+    public CIDR getRange() {
+        return range;
+    }
 
-	@Override
-	public String toString() {
-		return range + " - " + ipFile;
-	}
-	
+    public File getIpFile() {
+        return ipFile;
+    }
+
+    @Override
+    public String toString() {
+        return range + " - " + ipFile;
+    }
+
 }

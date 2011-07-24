@@ -27,35 +27,43 @@ import java.util.List;
 
 /**
  * Utility class for working with the network labels annotation format. Each
- * line in the file consists of three fields separated by tabs. The first
- * field is the IP block in CIDR string format. The second field is the label
- * that should be shown on the block. The third field is a sublabel which will
- * be shown in smaller text below the label. If the third field is set to the
+ * line in the file consists of three fields separated by tabs. The first field
+ * is the IP block in CIDR string format. The second field is the label that
+ * should be shown on the block. The third field is a sublabel which will be
+ * shown in smaller text below the label. If the third field is set to the
  * special string "prefix" then the CIDR string will be shown as the sublabel.
  * 
  * @author Rafael Bedia
  */
-public class Annotate {
+public final class Annotate {
 
-	/**
-	 * Reads a file and interprets it as a network label file. It returns a
-	 * list of annotations from the file.
-	 * 
-	 * @param file
-	 * @return
-	 * @throws IOException
-	 */
-	public static List<Annotation> readLabelFile(File file) throws IOException {
-		List<Annotation> annotations = new ArrayList<Annotation>();
-		FileReader fileReader = new FileReader(file);
-		BufferedReader reader = new BufferedReader(fileReader);
-		String line;
-		
-		while ((line = reader.readLine()) != null) {
-			String[] parts = line.split("\t");
-			Annotation a = new Annotation(parts[0], parts[1], parts[2]);
-			annotations.add(a);
-		}
-		return annotations;
-	}
+    /**
+     * Private constructor.
+     */
+    private Annotate() {
+    }
+
+    /**
+     * Reads a file and interprets it as a network label file. It returns a list
+     * of annotations from the file.
+     * 
+     * @param file
+     *            the network label file
+     * @return a list of annotations read from the file
+     * @throws IOException
+     */
+    public static List<Annotation> readLabelFile(final File file)
+            throws IOException {
+        List<Annotation> annotations = new ArrayList<Annotation>();
+        FileReader fileReader = new FileReader(file);
+        BufferedReader reader = new BufferedReader(fileReader);
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split("\t");
+            Annotation a = new Annotation(parts[0], parts[1], parts[2]);
+            annotations.add(a);
+        }
+        return annotations;
+    }
 }

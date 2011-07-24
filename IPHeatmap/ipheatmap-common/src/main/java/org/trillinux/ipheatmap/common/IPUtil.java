@@ -26,37 +26,35 @@ package org.trillinux.ipheatmap.common;
  */
 public class IPUtil {
 
-	/**
-	 * Converts the text form of an IP address to an integer.
-	 * 
-	 * @param addr
-	 * @return
-	 */
-	public static int ipToInt(final String addr) {
-		final String[] addressBytes = addr.split("\\.");
+    /**
+     * Converts the text form of an IP address to an integer.
+     * 
+     * @param addr
+     * @return
+     */
+    public static int ipToInt(final String addr) {
+        final String[] addressBytes = addr.split("\\.");
 
-		if (addressBytes.length != 4) {
-			throw new IllegalArgumentException("IPs have the format x.x.x.x");
-		}
-		
-		int ip = 0;
-		for (int i = 0; i < 4; i++) {
-			ip <<= 8;
-			ip |= Integer.parseInt(addressBytes[i]);
-		}
-		return ip;
-	}
+        if (addressBytes.length != 4) {
+            throw new IllegalArgumentException("IPs have the format x.x.x.x");
+        }
 
-	/**
-	 * Converts an integer IP address into its text form.
-	 * 
-	 * @param i
-	 * @return
-	 */
-	public static String intToIp(int i) {
-        return ((i >> 24 ) & 0xFF) + "." +
-               ((i >> 16 ) & 0xFF) + "." +
-               ((i >>  8 ) & 0xFF) + "." +
-               ( i        & 0xFF);
+        int ip = 0;
+        for (int i = 0; i < 4; i++) {
+            ip <<= 8;
+            ip |= Integer.parseInt(addressBytes[i]);
+        }
+        return ip;
+    }
+
+    /**
+     * Converts an integer IP address into its text form.
+     * 
+     * @param i
+     * @return
+     */
+    public static String intToIp(int i) {
+        return ((i >> 24) & 0xFF) + "." + ((i >> 16) & 0xFF) + "."
+                + ((i >> 8) & 0xFF) + "." + (i & 0xFF);
     }
 }

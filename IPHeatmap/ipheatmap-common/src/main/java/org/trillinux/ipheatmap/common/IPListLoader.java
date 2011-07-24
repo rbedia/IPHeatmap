@@ -31,42 +31,43 @@ import java.util.List;
  * file is read so that the whole directory does not need to be scanned.
  * 
  * @author Rafael Bedia
- *
+ * 
  */
 public class IPListLoader {
-	File ipDir;
+    File ipDir;
 
-	public IPListLoader(File ipDir) {
-		this.ipDir = ipDir;
-	}
-	
-	public List<IPMapping> getMappings() {
-		return readIndex();
-	}
-	
-	public List<IPMapping> readIndex() {
-		List<IPMapping> mappings = new ArrayList<IPMapping>();
-		try {
-			FileInputStream fileIn = new FileInputStream(new File(ipDir, "index.txt"));
-			DataInputStream in = new DataInputStream(fileIn);
-			
-			try {
-				while(true) {
-					long start = in.readLong();
-					long end = in.readLong();
-					int mask = in.readInt();
-					CIDR cidr = new CIDR(start, end, mask);
-					String filePath = in.readUTF();
-					mappings.add(new IPMapping(cidr, new File(ipDir, filePath)));
-				}
-			} catch (EOFException ex) {
-				
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return mappings;
-	}
+    public IPListLoader(File ipDir) {
+        this.ipDir = ipDir;
+    }
+
+    public List<IPMapping> getMappings() {
+        return readIndex();
+    }
+
+    public List<IPMapping> readIndex() {
+        List<IPMapping> mappings = new ArrayList<IPMapping>();
+        try {
+            FileInputStream fileIn = new FileInputStream(new File(ipDir,
+                    "index.txt"));
+            DataInputStream in = new DataInputStream(fileIn);
+
+            try {
+                while (true) {
+                    long start = in.readLong();
+                    long end = in.readLong();
+                    int mask = in.readInt();
+                    CIDR cidr = new CIDR(start, end, mask);
+                    String filePath = in.readUTF();
+                    mappings.add(new IPMapping(cidr, new File(ipDir, filePath)));
+                }
+            } catch (EOFException ex) {
+
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return mappings;
+    }
 }

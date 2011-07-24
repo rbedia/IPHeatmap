@@ -25,27 +25,34 @@ import java.awt.Point;
  * 
  * @author Rafael Bedia
  */
-public class Hilbert {
-	/**
-	 * Figure 14-5 from Hacker's Delight (by Henry S. Warren, Jr. published by
-	 * Addison Wesley, 2002)
-	 * 
-	 * See also http://www.hackersdelight.org/permissions.htm
-	 */
-	public static Point hil_xy_from_s(long s, int n) {
-		long state, x, y;
+public final class Hilbert {
 
-		state = 0; /* Initialize. */
-		x = y = 0;
+    /**
+     * Private constructor.
+     */
+    private Hilbert() {
+    }
 
-		for (int i = 2 * n - 2; i >= 0; i -= 2) { /* Do n times. */
-			long row = 4 * state | ((s >> i) & 3); /* Row in table. */
-			x = (x << 1) | ((0x936C >> row) & 1);
-			y = (y << 1) | ((0x39C6 >> row) & 1);
-			state = (0x3E6B94C1 >> 2 * row) & 3; /* New state. */
-		}
+    /**
+     * Figure 14-5 from Hacker's Delight (by Henry S. Warren, Jr. published by
+     * Addison Wesley, 2002)
+     * 
+     * See also http://www.hackersdelight.org/permissions.htm
+     */
+    public static Point getPoint(long s, int n) {
+        long state, x, y;
 
-		return new Point((int) x, (int) y);
-	}
+        state = 0; /* Initialize. */
+        x = y = 0;
+
+        for (int i = 2 * n - 2; i >= 0; i -= 2) { /* Do n times. */
+            long row = 4 * state | ((s >> i) & 3); /* Row in table. */
+            x = (x << 1) | ((0x936C >> row) & 1);
+            y = (y << 1) | ((0x39C6 >> row) & 1);
+            state = (0x3E6B94C1 >> 2 * row) & 3; /* New state. */
+        }
+
+        return new Point((int) x, (int) y);
+    }
 
 }

@@ -31,121 +31,134 @@ import java.io.OutputStream;
  */
 public class Tile {
 
-	private File ipDir;
-	private File cacheDir;
-	private File labelFile;
-	
-	/**
-	 * 
-	 * @param ipDir The directory containing the IP lists
-	 * @param labelFile The file containing IP block labels
-	 * @param cacheDir The directory where generated tiles will be cached
-	 */
-	public Tile(File ipDir, File labelFile, File cacheDir) {
-		this.ipDir = ipDir;
-		this.labelFile = labelFile;
-		this.cacheDir = cacheDir;
-	}
+    private final File ipDir;
+    private final File cacheDir;
+    private final File labelFile;
 
-	/**
-	 * Creates a tile at the given coordinates. The tile will be cached to disk
-	 * and written to the OutputStream.
-	 * 
-	 * @param x X coordinate
-	 * @param y Y coordinate
-	 * @param z Zoom level
-	 * @param out where to write the tile image
-	 */
-	public void generate(int x, int y, int z, OutputStream out) {
-		try {
-			Point offset = new Point(x * 256, y * 256);
-			int maskBits = (z - 1) * 2;
-			BBox box = new BBox();
-			box.xmin = offset.x;
-			box.ymin = offset.y;
-			box.xmax = box.xmin + 256;
-			box.ymax = box.ymin + 256;
+    /**
+     * 
+     * @param ipDir
+     *            The directory containing the IP lists
+     * @param labelFile
+     *            The file containing IP block labels
+     * @param cacheDir
+     *            The directory where generated tiles will be cached
+     */
+    public Tile(File ipDir, File labelFile, File cacheDir) {
+        this.ipDir = ipDir;
+        this.labelFile = labelFile;
+        this.cacheDir = cacheDir;
+    }
 
-			IPMap h = new IPMap(box, maskBits, 16 - maskBits);
-			
-			IPListLoader loader = new IPListLoader(ipDir);
-			h.addIPMappings(loader.getMappings());
-			h.setLabelFile(labelFile);
-			h.start();
+    /**
+     * Creates a tile at the given coordinates. The tile will be cached to disk
+     * and written to the OutputStream.
+     * 
+     * @param x
+     *            X coordinate
+     * @param y
+     *            Y coordinate
+     * @param z
+     *            Zoom level
+     * @param out
+     *            where to write the tile image
+     */
+    public void generate(int x, int y, int z, OutputStream out) {
+        try {
+            Point offset = new Point(x * 256, y * 256);
+            int maskBits = (z - 1) * 2;
+            BBox box = new BBox();
+            box.xmin = offset.x;
+            box.ymin = offset.y;
+            box.xmax = box.xmin + 256;
+            box.ymax = box.ymin + 256;
 
-			File tileFile = getTileFile(x, y, z);
-			File dir = tileFile.getParentFile();
-			if (!dir.exists()) {
-				dir.mkdirs();
-			}
-			if (dir.exists()) {
-				h.saveImage(tileFile);
-			}
+            IPMap h = new IPMap(box, maskBits, 16 - maskBits);
 
-			if (out != null) {
-				h.writeImage(out);
-			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+            IPListLoader loader = new IPListLoader(ipDir);
+            h.addIPMappings(loader.getMappings());
+            h.setLabelFile(labelFile);
+            h.start();
 
-	/**
-	 * Writes a tile to the OutputStream from the disk cache. This method 
-	 * should only be called if tileExists returns true for the same (x, y, z)
-	 * triplet.
-	 * 
-	 * @param x X coordinate
-	 * @param y Y coordinate
-	 * @param z Zoom level
-	 * @param out where to write the tile image
-	 * @throws IOException
-	 */
-	public void writeCachedTile(int x, int y, int z, OutputStream out)
-			throws IOException {
-		FileInputStream is = new FileInputStream(getTileFile(x, y, z));
+            File tileFile = getTileFile(x, y, z);
+            File dir = tileFile.getParentFile();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            if (dir.exists()) {
+                h.saveImage(tileFile);
+            }
 
-		byte[] buffer = new byte[4096];
-		int len;
-		while ((len = is.read(buffer)) != -1) {
-			out.write(buffer, 0, len);
-		}
-		out.flush();
-		is.close();
-		out.close();
-	}
+            if (out != null) {
+                h.writeImage(out);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
-	/**
-	 * Checks the tile cache to see if the tile has already been created.
-	 * 
-	 * @param x X coordinate
-	 * @param y Y coordinate
-	 * @param z Zoom level
-	 * @return true if the tile exists, false otherwise
-	 */
-	public boolean tileExists(int x, int y, int z) {
-		File tilefile = getTileFile(x, y, z);
-		return tilefile.exists();
-	}
-	
-	public File getTileFile(int x, int y, int z) {
-		return new File(cacheDir, z + "/" + x + "/" + y + ".png");
-	}
+    /**
+     * Writes a tile to the OutputStream from the disk cache. This method should
+     * only be called if tileExists returns true for the same (x, y, z) triplet.
+     * 
+     * @param x
+     *            X coordinate
+     * @param y
+     *            Y coordinate
+     * @param z
+     *            Zoom level
+     * @param out
+     *            where to write the tile image
+     * @throws IOException
+     */
+    public void writeCachedTile(int x, int y, int z, OutputStream out)
+            throws IOException {
+        FileInputStream is = new FileInputStream(getTileFile(x, y, z));
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
-		long now = System.currentTimeMillis();
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = is.read(buffer)) != -1) {
+            out.write(buffer, 0, len);
+        }
+        out.flush();
+        is.close();
+        out.close();
+    }
 
-		String type = "hubs";
-		File cacheDir = new File("/home/rafael/crawler/tile-cache/" + type);
-		File ipDir = new File("/home/rafael/crawler/" + type);
-		File labelFile = new File("/home/rafael/crawler/network-labels.txt");
-		Tile tile = new Tile(ipDir, labelFile, cacheDir);
-		tile.generate(0, 0, 9, null);
+    /**
+     * Checks the tile cache to see if the tile has already been created.
+     * 
+     * @param x
+     *            X coordinate
+     * @param y
+     *            Y coordinate
+     * @param z
+     *            Zoom level
+     * @return true if the tile exists, false otherwise
+     */
+    public boolean tileExists(int x, int y, int z) {
+        File tilefile = getTileFile(x, y, z);
+        return tilefile.exists();
+    }
 
-		System.out.println((System.currentTimeMillis() - now) / 1000.0);
-	}
+    public File getTileFile(int x, int y, int z) {
+        return new File(cacheDir, z + "/" + x + "/" + y + ".png");
+    }
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) throws Exception {
+        long now = System.currentTimeMillis();
+
+        String type = "hubs";
+        File cacheDir = new File("/home/rafael/crawler/tile-cache/" + type);
+        File ipDir = new File("/home/rafael/crawler/" + type);
+        File labelFile = new File("/home/rafael/crawler/network-labels.txt");
+        Tile tile = new Tile(ipDir, labelFile, cacheDir);
+        tile.generate(0, 0, 9, null);
+
+        System.out.println((System.currentTimeMillis() - now) / 1000.0);
+    }
 
 }
