@@ -24,7 +24,12 @@ package org.trillinux.ipheatmap.common;
  * 
  * @author Rafael Bedia
  */
-public class IPUtil {
+public final class IPUtil {
+    /**
+     * Private constructor.
+     */
+    private IPUtil() {
+    }
 
     /**
      * Converts the text form of an IP address to an integer.
@@ -54,7 +59,15 @@ public class IPUtil {
      * @return
      */
     public static String intToIp(int i) {
-        return ((i >> 24) & 0xFF) + "." + ((i >> 16) & 0xFF) + "."
-                + ((i >> 8) & 0xFF) + "." + (i & 0xFF);
+        StringBuilder out = new StringBuilder(15);
+        out.append((i >> 24) & 0xFF);
+        out.append(".");
+        out.append((i >> 16) & 0xFF);
+        out.append(".");
+        out.append((i >> 8) & 0xFF);
+        out.append(".");
+        out.append(i & 0xFF);
+
+        return out.toString();
     }
 }

@@ -43,7 +43,8 @@ public final class Hilbert {
         long state, x, y;
 
         state = 0; /* Initialize. */
-        x = y = 0;
+        x = 0;
+        y = 0;
 
         for (int i = 2 * n - 2; i >= 0; i -= 2) { /* Do n times. */
             long row = 4 * state | ((s >> i) & 3); /* Row in table. */

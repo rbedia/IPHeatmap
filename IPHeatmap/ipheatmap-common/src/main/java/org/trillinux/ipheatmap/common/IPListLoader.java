@@ -33,18 +33,22 @@ import java.util.List;
  * @author Rafael Bedia
  * 
  */
-public class IPListLoader {
-    File ipDir;
-
-    public IPListLoader(File ipDir) {
-        this.ipDir = ipDir;
+public final class IPListLoader {
+    /**
+     * Private constructor.
+     */
+    private IPListLoader() {
     }
 
-    public List<IPMapping> getMappings() {
-        return readIndex();
-    }
-
-    public List<IPMapping> readIndex() {
+    /**
+     * Reads the index file in the IP directory to determine the list of IP
+     * mappings that are in the directory.
+     * 
+     * @param ipDir
+     *            the IP directory to scan
+     * @return list of IP block to file mappings
+     */
+    public static List<IPMapping> readMappings(File ipDir) {
         List<IPMapping> mappings = new ArrayList<IPMapping>();
         try {
             FileInputStream fileIn = new FileInputStream(new File(ipDir,

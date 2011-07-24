@@ -31,45 +31,60 @@ public class BBoxUtil {
     private final int hilbertCurveOrder;
     private final int bitsPerPixel;
 
+    /**
+     * Constructs a BBoxUtil with the specified image dimensions derived from
+     * the hilbert order and the number of bits per pixel.
+     * 
+     * @param hilbertOrder
+     * @param inBitsPerPixel
+     */
     public BBoxUtil(final int hilbertOrder, final int inBitsPerPixel) {
         this.hilbertCurveOrder = hilbertOrder;
         this.bitsPerPixel = inBitsPerPixel;
     }
 
+    /**
+     * Converts a CIDR block to a bounding box on the image.
+     * 
+     * @param cidr
+     * @return
+     */
     public BBox boundingBox(final CIDR cidr) {
         BBox bbox = new BBox();
         long diag = 0xAAAAAAAAL;
 
-        if (cidr.mask >= MAX_MASK) {
-            Point p = Hilbert.getPoint(cidr.start >> 8, hilbertCurveOrder);
-            bbox.xmin = p.x;
-            bbox.xmax = p.x;
-            bbox.ymin = p.y;
-            bbox.ymax = p.y;
-        } else if (0 == (cidr.mask & 1)) {
-            diag >>= cidr.mask;
-            Point p1 = Hilbert.getPoint(cidr.start >> bitsPerPixel,
+        if (cidr.getMask() >= MAX_MASK) {
+            Point p = Hilbert.getPoint(cidr.getStart() >> 8, hilbertCurveOrder);
+            bbox.setXmin(p.x);
+            bbox.setXmax(p.x);
+            bbox.setYmin(p.y);
+            bbox.setYmax(p.y);
+        } else if (0 == (cidr.getMask() & 1)) {
+            diag >>= cidr.getMask();
+            Point p1 = Hilbert.getPoint(cidr.getStart() >> bitsPerPixel,
                     hilbertCurveOrder);
-            Point p2 = Hilbert.getPoint(
-                    (cidr.start + diag) >> bitsPerPixel, hilbertCurveOrder);
-            bbox.xmin = Math.min(p1.x, p2.x);
-            bbox.xmax = Math.max(p1.x, p2.x);
-            bbox.ymin = Math.min(p1.y, p2.y);
-            bbox.ymax = Math.max(p1.y, p2.y);
+            Point p2 = Hilbert
+                    .getPoint((cidr.getStart() + diag) >> bitsPerPixel,
+                            hilbertCurveOrder);
+            bbox.setXmin(Math.min(p1.x, p2.x));
+            bbox.setXmax(Math.max(p1.x, p2.x));
+            bbox.setYmin(Math.min(p1.y, p2.y));
+            bbox.setYmax(Math.max(p1.y, p2.y));
         } else {
             CIDR cidrCopy1 = new CIDR(cidr);
-            cidrCopy1.mask += 1;
+            cidrCopy1.setMask(cidrCopy1.getMask() + 1);
             BBox b1 = boundingBox(cidrCopy1);
 
             CIDR cidrCopy2 = new CIDR(cidr);
-            cidrCopy2.start = cidr.start + (1 << (MAX_MASK - (cidr.mask + 1)));
-            cidrCopy2.mask += 1;
+            cidrCopy2.setStart(cidr.getStart()
+                    + (1 << (MAX_MASK - (cidr.getMask() + 1))));
+            cidrCopy2.setMask(cidrCopy2.getMask() + 1);
             BBox b2 = boundingBox(cidrCopy2);
 
-            bbox.xmin = Math.min(b1.xmin, b2.xmin);
-            bbox.xmax = Math.max(b1.xmax, b2.xmax);
-            bbox.ymin = Math.min(b1.ymin, b2.ymin);
-            bbox.ymax = Math.max(b1.ymax, b2.ymax);
+            bbox.setXmin(Math.min(b1.getXmin(), b2.getXmin()));
+            bbox.setXmax(Math.max(b1.getXmax(), b2.getXmax()));
+            bbox.setYmin(Math.min(b1.getYmin(), b2.getYmin()));
+            bbox.setYmax(Math.max(b1.getYmax(), b2.getYmax()));
         }
 
         return bbox;

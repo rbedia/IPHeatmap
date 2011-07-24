@@ -61,7 +61,11 @@ public final class Annotate {
 
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split("\t");
-            Annotation a = new Annotation(parts[0], parts[1], parts[2]);
+            String cidr = parts[0];
+            String label = parts[1];
+            String sublabel = parts[2];
+
+            Annotation a = new Annotation(new CIDR(cidr), label, sublabel);
             annotations.add(a);
         }
         return annotations;

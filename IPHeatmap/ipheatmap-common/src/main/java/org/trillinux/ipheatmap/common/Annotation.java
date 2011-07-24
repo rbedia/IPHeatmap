@@ -35,10 +35,13 @@ public class Annotation {
 
     private String sublabel;
 
-    public Annotation(String cidr, String label, String sublabel) {
-        this(new CIDR(cidr), label, sublabel);
-    }
-
+    /**
+     * Constructs an Annotation.
+     * 
+     * @param cidr
+     * @param label
+     * @param sublabel
+     */
     public Annotation(CIDR cidr, String label, String sublabel) {
         this.cidr = cidr;
         this.label = label;
@@ -49,14 +52,29 @@ public class Annotation {
         }
     }
 
+    /**
+     * Gets the CIDR block.
+     * 
+     * @return the CIDR block
+     */
     public CIDR getCidr() {
         return cidr;
     }
 
+    /**
+     * Gets the label.
+     * 
+     * @return the label
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Gets the sublabel.
+     * 
+     * @return the sublabel
+     */
     public String getSublabel() {
         if (sublabel.equals("prefix")) {
             return cidr.getText();

@@ -27,10 +27,10 @@ import java.awt.Point;
  * @author Rafael Bedia
  */
 public class BBox {
-    public int xmin;
-    public int xmax;
-    public int ymin;
-    public int ymax;
+    private int xmin;
+    private int xmax;
+    private int ymin;
+    private int ymax;
 
     public BBox() {
     }
@@ -110,5 +110,65 @@ public class BBox {
         boolean yOverlap = (ymin <= box.ymin && box.ymin <= ymax)
                 || (box.ymin <= ymin && ymin <= box.ymax);
         return xOverlap && yOverlap;
+    }
+
+    /**
+     * @return the xmin
+     */
+    public int getXmin() {
+        return xmin;
+    }
+
+    /**
+     * @param xmin
+     *            the xmin to set
+     */
+    public void setXmin(int xmin) {
+        this.xmin = xmin;
+    }
+
+    /**
+     * @return the xmax
+     */
+    public int getXmax() {
+        return xmax;
+    }
+
+    /**
+     * @param xmax
+     *            the xmax to set
+     */
+    public void setXmax(int xmax) {
+        this.xmax = xmax;
+    }
+
+    /**
+     * @return the ymin
+     */
+    public int getYmin() {
+        return ymin;
+    }
+
+    /**
+     * @param ymin
+     *            the ymin to set
+     */
+    public void setYmin(int ymin) {
+        this.ymin = ymin;
+    }
+
+    /**
+     * @return the ymax
+     */
+    public int getYmax() {
+        return ymax;
+    }
+
+    /**
+     * @param ymax
+     *            the ymax to set
+     */
+    public void setYmax(int ymax) {
+        this.ymax = ymax;
     }
 }

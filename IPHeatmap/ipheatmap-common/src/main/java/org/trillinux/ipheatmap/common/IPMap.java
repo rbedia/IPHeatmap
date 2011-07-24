@@ -37,15 +37,15 @@ import javax.imageio.ImageIO;
 
 public class IPMap {
 
-    private final int addr_space_bits = 32;
+    private static final int ADDR_SPACE_BITS = 32;
 
-    private final int addr_space_bits_per_pixel;
+    private final int bitsPerPixel;
 
-    private final int hilbert_curve_order;
+    private final int hilbertOrder;
 
-    private final int width;
+    private final int imageWidth;
 
-    private final int height;
+    private final int imageHeight;
 
     private BufferedImage bimage;
 
@@ -53,7 +53,7 @@ public class IPMap {
 
     private final BBoxUtil bboxUtil;
 
-    private static int NUM_DATA_COLORS = 256;
+    private static final int NUM_DATA_COLORS = 256;
 
     private Color[] colors;
 
@@ -73,54 +73,54 @@ public class IPMap {
      * 
      * cidr defines the subset of the IP space that will be mapped.
      * 
-     * addr_space_bits_per_pixel determines how many IP addresses will be
-     * represented by each pixel.
+     * bitsPerPixel determines how many IP addresses will be represented by each
+     * pixel.
      * 
-     * The combination of cidr and addr_space_bits_per_pixel determines the size
-     * of the resulting image.
+     * The combination of cidr and bitsPerPixel determines the size of the
+     * resulting image.
      */
-    public IPMap(CIDR cidr, int addr_space_bits_per_pixel) {
+    public IPMap(CIDR cidr, int bitsPerPixel) {
         iplists = new ArrayList<IPMapping>();
-        this.addr_space_bits_per_pixel = addr_space_bits_per_pixel;
+        this.bitsPerPixel = bitsPerPixel;
 
-        hilbert_curve_order = (addr_space_bits - addr_space_bits_per_pixel) / 2;
+        hilbertOrder = (ADDR_SPACE_BITS - bitsPerPixel) / 2;
 
-        bboxUtil = new BBoxUtil(hilbert_curve_order, addr_space_bits_per_pixel);
+        bboxUtil = new BBoxUtil(hilbertOrder, bitsPerPixel);
 
-        int addr_space_bits_per_image = 32 - cidr.mask;
+        int bitsPerImage = ADDR_SPACE_BITS - cidr.getMask();
 
         subset = bboxUtil.boundingBox(cidr);
-        offset = new Point(subset.xmin, subset.ymin);
+        offset = new Point(subset.getXmin(), subset.getYmin());
 
-        int size = (addr_space_bits_per_image - addr_space_bits_per_pixel) / 2;
+        int size = (bitsPerImage - bitsPerPixel) / 2;
 
-        width = 1 << size;
-        height = 1 << size;
+        imageWidth = 1 << size;
+        imageHeight = 1 << size;
 
-        ipCounts = new int[width][height];
+        ipCounts = new int[imageWidth][imageHeight];
 
         loadColors();
     }
 
-    public IPMap(BBox subset, int mask, int addr_space_bits_per_pixel) {
+    public IPMap(BBox subset, int mask, int bitsPerPixel) {
         iplists = new ArrayList<IPMapping>();
-        this.addr_space_bits_per_pixel = addr_space_bits_per_pixel;
+        this.bitsPerPixel = bitsPerPixel;
 
-        hilbert_curve_order = (addr_space_bits - addr_space_bits_per_pixel) / 2;
+        hilbertOrder = (ADDR_SPACE_BITS - bitsPerPixel) / 2;
 
-        bboxUtil = new BBoxUtil(hilbert_curve_order, addr_space_bits_per_pixel);
+        bboxUtil = new BBoxUtil(hilbertOrder, bitsPerPixel);
 
-        int addr_space_bits_per_image = 32 - mask;
+        int bitsPerImage = ADDR_SPACE_BITS - mask;
 
         this.subset = subset;
-        offset = new Point(subset.xmin, subset.ymin);
+        offset = new Point(subset.getXmin(), subset.getYmin());
 
-        int size = (addr_space_bits_per_image - addr_space_bits_per_pixel) / 2;
+        int size = (bitsPerImage - bitsPerPixel) / 2;
 
-        width = 1 << size;
-        height = 1 << size;
+        imageWidth = 1 << size;
+        imageHeight = 1 << size;
 
-        ipCounts = new int[width][height];
+        ipCounts = new int[imageWidth][imageHeight];
 
         loadColors();
     }
@@ -175,12 +175,13 @@ public class IPMap {
     public void start() throws IOException {
         countIPs();
 
-        bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        bimage = new BufferedImage(imageWidth, imageHeight,
+                BufferedImage.TYPE_INT_ARGB);
         g2d = bimage.createGraphics();
 
         // Set background to black
         g2d.setColor(new Color(0, 0, 0));
-        g2d.fillRect(0, 0, width, height);
+        g2d.fillRect(0, 0, imageWidth, imageHeight);
 
         drawIPs();
 
@@ -194,8 +195,8 @@ public class IPMap {
     private void drawIPs() {
         double logB = maxCount == 1 ? 1 : Math.log(maxCount);
         double logC = 255.0 / logB;
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < imageWidth; x++) {
+            for (int y = 0; y < imageHeight; y++) {
                 int k = ipCounts[x][y];
                 if (k > 0) {
                     k = (int) (logC * Math.log(k));
@@ -223,9 +224,8 @@ public class IPMap {
                 try {
                     while (true) {
                         long ip = in.readLong();
-                        ip >>= addr_space_bits_per_pixel;
-                        Point p = Hilbert
-                                .getPoint(ip, hilbert_curve_order);
+                        ip >>= bitsPerPixel;
+                        Point p = Hilbert.getPoint(ip, hilbertOrder);
                         remapPoint(p);
                         if (pointInImage(p)) {
                             ipCounts[p.x][p.y]++;
@@ -248,7 +248,7 @@ public class IPMap {
      * @return
      */
     private boolean pointInImage(Point p) {
-        return p.x < width && p.x >= 0 && p.y < height && p.y >= 0;
+        return p.x < imageWidth && p.x >= 0 && p.y < imageHeight && p.y >= 0;
     }
 
     private void remapPoint(Point p) {
@@ -263,16 +263,16 @@ public class IPMap {
             if (subset.overlaps(bbox)) {
                 bbox.remap(offset);
 
-                int width = bbox.xmax - bbox.xmin;
-                int height = bbox.ymax - bbox.ymin;
-                g2d.drawRect(bbox.xmin, bbox.ymin, width, height);
+                int width = bbox.getXmax() - bbox.getXmin();
+                int height = bbox.getYmax() - bbox.getYmin();
+                g2d.drawRect(bbox.getXmin(), bbox.getYmin(), width, height);
 
                 String sublabel = annotation.getSublabel();
 
                 BBox txtBBox = new BBox(bbox);
 
                 if (!sublabel.isEmpty()) {
-                    txtBBox.ymax -= (height / 3);
+                    txtBBox.setYmax(txtBBox.getYmax() - (height / 3));
                 }
 
                 txtBBox.shrink(3, 2);
@@ -280,20 +280,21 @@ public class IPMap {
                 Font font = getFont(txtBBox, annotation.getLabel(), 128);
                 if (font != null) {
                     g2d.setFont(font);
-                    g2d.drawString(annotation.getLabel(), txtBBox.xmin,
-                            txtBBox.ymax);
+                    g2d.drawString(annotation.getLabel(), txtBBox.getXmin(),
+                            txtBBox.getYmax());
                 }
 
                 if (!sublabel.isEmpty()) {
                     BBox subBBox = new BBox(bbox);
-                    subBBox.ymin = txtBBox.ymax;
+                    subBBox.setYmin(txtBBox.getYmax());
                     subBBox.shrink(2, 1);
 
                     String text = annotation.getSublabel();
                     Font subFont = getFont(subBBox, text, 12);
                     if (subFont != null) {
                         g2d.setFont(subFont);
-                        g2d.drawString(text, subBBox.xmin, subBBox.ymax);
+                        g2d.drawString(text, subBBox.getXmin(),
+                                subBBox.getYmax());
                     }
                 }
             }
@@ -301,8 +302,8 @@ public class IPMap {
     }
 
     private Font getFont(BBox bbox, String text, int fontSize) {
-        int bboxWidth = bbox.xmax - bbox.xmin;
-        int bboxHeight = bbox.ymax - bbox.ymin;
+        int bboxWidth = bbox.getXmax() - bbox.getXmin();
+        int bboxHeight = bbox.getYmax() - bbox.getYmin();
 
         Font font;
         int txtWidth;
@@ -326,10 +327,7 @@ public class IPMap {
         int xOffset = (bboxWidth - txtWidth) / 2;
         int yOffset = (bboxHeight - txtHeight) / 2;
 
-        bbox.xmin += xOffset;
-        bbox.xmax -= xOffset;
-        bbox.ymin += yOffset;
-        bbox.ymax -= yOffset;
+        bbox.shrink(xOffset, yOffset);
 
         return font;
     }

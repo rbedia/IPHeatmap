@@ -68,15 +68,14 @@ public class Tile {
             Point offset = new Point(x * 256, y * 256);
             int maskBits = (z - 1) * 2;
             BBox box = new BBox();
-            box.xmin = offset.x;
-            box.ymin = offset.y;
-            box.xmax = box.xmin + 256;
-            box.ymax = box.ymin + 256;
+            box.setXmin(offset.x);
+            box.setYmin(offset.y);
+            box.setXmax(offset.x + 256);
+            box.setYmax(offset.y + 256);
 
             IPMap h = new IPMap(box, maskBits, 16 - maskBits);
 
-            IPListLoader loader = new IPListLoader(ipDir);
-            h.addIPMappings(loader.getMappings());
+            h.addIPMappings(IPListLoader.readMappings(ipDir));
             h.setLabelFile(labelFile);
             h.start();
 

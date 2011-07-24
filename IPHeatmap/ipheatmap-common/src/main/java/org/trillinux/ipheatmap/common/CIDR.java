@@ -25,29 +25,49 @@ package org.trillinux.ipheatmap.common;
  */
 public class CIDR {
 
-    private static long MAX_IP = 0xFFFFFFFFl;
+    private static final long MAX_IP = 0xFFFFFFFFl;
 
-    public long start;
+    private long start;
 
-    public long end;
+    private long end;
 
-    public int mask;
+    private int mask;
 
+    /**
+     * Default constructor.
+     */
     public CIDR() {
     }
 
+    /**
+     * Constructs a CIDR object by deep copying an existing CIDR object.
+     * 
+     * @param cidr
+     */
     public CIDR(CIDR cidr) {
         start = cidr.start;
         end = cidr.end;
         mask = cidr.mask;
     }
 
+    /**
+     * Constructs a CIDR object by using the specified parameters.
+     * 
+     * @param start
+     * @param end
+     * @param mask
+     */
     public CIDR(long start, long end, int mask) {
         this.start = start;
         this.mask = mask;
         this.end = end;
     }
 
+    /**
+     * Constructs a CIDR object by parsing a CIDR format string.
+     * 
+     * @param input
+     */
     public CIDR(String input) {
         String[] parts = input.split("/");
 
@@ -59,6 +79,13 @@ public class CIDR {
         end = ip & MAX_IP | (maskBits >> mask);
     }
 
+    /**
+     * Returns true if cidr overlaps with this object.
+     * 
+     * @param cidr
+     *            the CIDR block to check for overlap
+     * @return true if cidr overlaps with this object
+     */
     public boolean overlaps(CIDR cidr) {
         return (start <= cidr.start && cidr.start <= end)
                 || (start <= cidr.end && cidr.end <= end)
@@ -66,10 +93,18 @@ public class CIDR {
                 || (cidr.start <= end && end <= cidr.end);
     }
 
+    /**
+     * Gets this object in CIDR text format.
+     * 
+     * @return this object in CIDR text format
+     */
     public String getText() {
         return IPUtil.intToIp((int) start) + "/" + mask;
     }
 
+    /**
+     * Returns a hashcode value for the object.
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -80,27 +115,84 @@ public class CIDR {
         return result;
     }
 
+    /**
+     * Compares the object for equality. All fields are checked.
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         CIDR other = (CIDR) obj;
-        if (end != other.end)
+        if (end != other.end) {
             return false;
-        if (mask != other.mask)
+        }
+        if (mask != other.mask) {
             return false;
-        if (start != other.start)
+        }
+        if (start != other.start) {
             return false;
+        }
         return true;
     }
 
+    /**
+     * Returns a string representation of the object.
+     */
     @Override
     public String toString() {
         return getText();
+    }
+
+    /**
+     * @return the start
+     */
+    public long getStart() {
+        return start;
+    }
+
+    /**
+     * @param start
+     *            the start to set
+     */
+    public void setStart(long start) {
+        this.start = start;
+    }
+
+    /**
+     * @return the end
+     */
+    public long getEnd() {
+        return end;
+    }
+
+    /**
+     * @param end
+     *            the end to set
+     */
+    public void setEnd(long end) {
+        this.end = end;
+    }
+
+    /**
+     * @return the mask
+     */
+    public int getMask() {
+        return mask;
+    }
+
+    /**
+     * @param mask
+     *            the mask to set
+     */
+    public void setMask(int mask) {
+        this.mask = mask;
     }
 
 }

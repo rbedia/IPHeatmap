@@ -23,18 +23,15 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.trillinux.ipheatmap.common.CIDR;
 import org.trillinux.ipheatmap.common.IPUtil;
 
 /**
  * Splits a file containing a list of IPs into multiple files based on the first
- * two levels of the IP address. For example IP address 1.2.3.4 would be 
- * written to 1/1.2.0.0-16.
+ * two levels of the IP address. For example IP address 1.2.3.4 would be written
+ * to 1/1.2.0.0-16.
  * 
  * If the input file list is sorted then there is a performance benefit because
  * files do not have to be repeatedly opened and closed.
@@ -47,74 +44,75 @@ import org.trillinux.ipheatmap.common.IPUtil;
  */
 public class IPSplitter {
 
-	private File input;
-	
-	private File directory;
-	
-	Map<String, FileWriter> files;
-	
-	public IPSplitter(File input, File directory) {
-		this.input = input;
-		this.directory = directory;
-		
-		files = new HashMap<String, FileWriter>();
-	}
-	
-	public void start() throws IOException {
-		directory.mkdir();
-		
-		BufferedReader reader = new BufferedReader(new FileReader(input));
-		String line;
-		String previousKey = "";
-		FileOutputStream fileIndexOut = new FileOutputStream(new File(directory, "index.txt"));
-		DataOutputStream indexOut = new DataOutputStream(fileIndexOut);
-		DataOutputStream out = null;
-		
-		while ((line = reader.readLine()) != null) {
-			String[] parts = line.split("\\.");
-			File level1 = new File(directory, parts[0]);
-			String key = parts[0] + "." + parts[1];
-			if (previousKey.equals(key)) {
-			} else {
-				if (out != null) {
-					out.close();
-				}
-				level1.mkdir();
-				int mask = 16;
-				String filename = String.format("%s.%s.0.0-%d", parts[0], parts[1], mask);
-				File ipFile = new File(level1, filename);
-				FileOutputStream fileOut = new FileOutputStream(ipFile);
-				out = new DataOutputStream(fileOut);
-				
-				String cidrStr = String.format("%s.%s.0.0/%d", parts[0], parts[1], mask);
-				CIDR cidr = new CIDR(cidrStr);
-				indexOut.writeLong(cidr.start);
-				indexOut.writeLong(cidr.end);
-				indexOut.writeInt(cidr.mask);
-				indexOut.writeUTF(parts[0] + '/' + filename);
-			}
-			out.writeLong(IPUtil.ipToInt(line));
-			previousKey = key;
-		}
-		if (out != null) {
-			out.close();
-		}
-		indexOut.close();
-	}
+    private final File input;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
-		if (args.length != 2) {
-			System.out.println("Expected two arguments: file, directory");
-			System.out.println("file - The file containing a list of IP addresses one per line.");
-			System.out.println("directory - The directory where the split files will be saved.");
-			System.exit(1);
-		}
-		
-		IPSplitter splitter = new IPSplitter(new File(args[0]), new File(args[1]));
-		splitter.start();
-	}
+    private final File directory;
+
+    public IPSplitter(File input, File directory) {
+        this.input = input;
+        this.directory = directory;
+    }
+
+    public void start() throws IOException {
+        directory.mkdir();
+
+        BufferedReader reader = new BufferedReader(new FileReader(input));
+        String line;
+        String previousKey = "";
+        FileOutputStream fileIndexOut = new FileOutputStream(new File(
+                directory, "index.txt"));
+        DataOutputStream indexOut = new DataOutputStream(fileIndexOut);
+        DataOutputStream out = null;
+
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split("\\.");
+            File level1 = new File(directory, parts[0]);
+            String key = parts[0] + "." + parts[1];
+            if (!previousKey.equals(key)) {
+                if (out != null) {
+                    out.close();
+                }
+                level1.mkdir();
+                int mask = 16;
+                String filename = String.format("%s.%s.0.0-%d", parts[0],
+                        parts[1], mask);
+                File ipFile = new File(level1, filename);
+                FileOutputStream fileOut = new FileOutputStream(ipFile);
+                out = new DataOutputStream(fileOut);
+
+                String cidrStr = String.format("%s.%s.0.0/%d", parts[0],
+                        parts[1], mask);
+                CIDR cidr = new CIDR(cidrStr);
+                indexOut.writeLong(cidr.getStart());
+                indexOut.writeLong(cidr.getEnd());
+                indexOut.writeInt(cidr.getMask());
+                indexOut.writeUTF(parts[0] + '/' + filename);
+            }
+            out.writeLong(IPUtil.ipToInt(line));
+            previousKey = key;
+        }
+        if (out != null) {
+            out.close();
+        }
+        indexOut.close();
+    }
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.out.println("Expected two arguments: file, directory");
+            System.out
+                    .println("file - The file containing a list of IP addresses one per line.");
+            System.out
+                    .println("directory - The directory where the split files will be saved.");
+            System.exit(1);
+        }
+
+        IPSplitter splitter = new IPSplitter(new File(args[0]), new File(
+                args[1]));
+        splitter.start();
+    }
 
 }
