@@ -67,6 +67,7 @@ public final class IPListLoader {
             } catch (EOFException ex) {
 
             }
+            fileIn.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

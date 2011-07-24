@@ -19,9 +19,8 @@
 package org.trillinux.ipheatmap.common;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,15 +46,14 @@ public final class Annotate {
      * Reads a file and interprets it as a network label file. It returns a list
      * of annotations from the file.
      * 
-     * @param file
+     * @param fileReader
      *            the network label file
      * @return a list of annotations read from the file
      * @throws IOException
      */
-    public static List<Annotation> readLabelFile(final File file)
+    public static List<Annotation> readLabelFile(final Reader fileReader)
             throws IOException {
         List<Annotation> annotations = new ArrayList<Annotation>();
-        FileReader fileReader = new FileReader(file);
         BufferedReader reader = new BufferedReader(fileReader);
         String line;
 

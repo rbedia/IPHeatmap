@@ -28,6 +28,7 @@ import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -188,7 +189,9 @@ public class IPMap {
         // Transparent white for drawing the labels on top of the heatmap
         g2d.setColor(new Color(255, 255, 255, 120));
 
-        List<Annotation> annotations = Annotate.readLabelFile(labelFile);
+        FileReader reader = new FileReader(labelFile);
+        List<Annotation> annotations = Annotate.readLabelFile(reader);
+        reader.close();
         drawLabels(annotations);
     }
 

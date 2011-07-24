@@ -22,8 +22,7 @@ import java.io.File;
 
 /**
  * Maps a CIDR range to a file containing a list of IPs that fall within the
- * CIDR range. The format for the file is one IP per line in ASCII dotted
- * decimal format.
+ * CIDR range.
  * 
  * @author Rafael Bedia
  */
@@ -32,20 +31,35 @@ public class IPMapping {
 
     private final File ipFile;
 
+    /**
+     * Creates an IP mapping.
+     * 
+     * @param range
+     * @param ipFile
+     */
     public IPMapping(CIDR range, File ipFile) {
         super();
         this.range = range;
         this.ipFile = ipFile;
     }
 
+    /**
+     * @return the range
+     */
     public CIDR getRange() {
         return range;
     }
 
+    /**
+     * @return the ipFile
+     */
     public File getIpFile() {
         return ipFile;
     }
 
+    /**
+     * Returns a string representation of the object.
+     */
     @Override
     public String toString() {
         return range + " - " + ipFile;
