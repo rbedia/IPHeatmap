@@ -39,6 +39,8 @@ public class IPMap {
 
     private static final int ADDR_SPACE_BITS = 32;
 
+    private static final int NUM_DATA_COLORS = 256;
+
     private final int bitsPerPixel;
 
     private final int hilbertOrder;
@@ -52,8 +54,6 @@ public class IPMap {
     private Graphics2D g2d;
 
     private final BBoxUtil bboxUtil;
-
-    private static final int NUM_DATA_COLORS = 256;
 
     private Color[] colors;
 

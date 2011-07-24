@@ -32,9 +32,32 @@ public class BBox {
     private int ymin;
     private int ymax;
 
+    /**
+     * Default constructor. All values are initialized to 0.
+     */
     public BBox() {
     }
 
+    /**
+     * Creates a bounding box using 4 coordinates to represent the edges.
+     * 
+     * @param xmin
+     * @param ymin
+     * @param xmax
+     * @param ymax
+     */
+    public BBox(int xmin, int ymin, int xmax, int ymax) {
+        this.xmin = xmin;
+        this.ymin = ymin;
+        this.xmax = xmax;
+        this.ymax = ymax;
+    }
+
+    /**
+     * Performs a deep copy of the bounding box.
+     * 
+     * @param bbox
+     */
     public BBox(BBox bbox) {
         xmin = bbox.xmin;
         xmax = bbox.xmax;
@@ -171,4 +194,53 @@ public class BBox {
     public void setYmax(int ymax) {
         this.ymax = ymax;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + xmax;
+        result = prime * result + xmin;
+        result = prime * result + ymax;
+        result = prime * result + ymin;
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        BBox other = (BBox) obj;
+        if (xmax != other.xmax) {
+            return false;
+        }
+        if (xmin != other.xmin) {
+            return false;
+        }
+        if (ymax != other.ymax) {
+            return false;
+        }
+        if (ymin != other.ymin) {
+            return false;
+        }
+        return true;
+    }
+
 }

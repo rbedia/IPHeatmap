@@ -28,6 +28,9 @@ import java.awt.Point;
 public class BBoxUtil {
 
     private static final int MAX_MASK = 32;
+
+    private static final long DIAG_INIT = 0xAAAAAAAAL;
+
     private final int hilbertCurveOrder;
     private final int bitsPerPixel;
 
@@ -51,7 +54,7 @@ public class BBoxUtil {
      */
     public BBox boundingBox(final CIDR cidr) {
         BBox bbox = new BBox();
-        long diag = 0xAAAAAAAAL;
+        long diag = DIAG_INIT;
 
         if (cidr.getMask() >= MAX_MASK) {
             Point p = Hilbert.getPoint(cidr.getStart() >> 8, hilbertCurveOrder);

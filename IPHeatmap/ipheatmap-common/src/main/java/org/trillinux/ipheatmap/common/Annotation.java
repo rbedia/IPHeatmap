@@ -26,6 +26,8 @@ package org.trillinux.ipheatmap.common;
  * the sublabel is set to "prefix" then it will show the text form of the CIDR
  * block that the annotation represents.
  * 
+ * Instances of this class are immutable.
+ * 
  * @author Rafael Bedia
  */
 public class Annotation {
@@ -44,7 +46,11 @@ public class Annotation {
      */
     public Annotation(CIDR cidr, String label, String sublabel) {
         this.cidr = cidr;
-        this.label = label;
+        if (label == null) {
+            this.label = "";
+        } else {
+            this.label = label;
+        }
         if (sublabel == null) {
             this.sublabel = "";
         } else {
@@ -77,7 +83,11 @@ public class Annotation {
      */
     public String getSublabel() {
         if (sublabel.equals("prefix")) {
-            return cidr.getText();
+            if (cidr != null) {
+                return cidr.getText();
+            } else {
+                return "";
+            }
         } else {
             return sublabel;
         }
