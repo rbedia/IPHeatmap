@@ -26,6 +26,7 @@
 				<configuration>
 					<archive>
 						<manifest>
+							<addClasspath>true</addClasspath>
 							<mainClass>org.trillinux.ipheatmap.splitter.IPSplitter</mainClass>
 						</manifest>
 					</archive>
