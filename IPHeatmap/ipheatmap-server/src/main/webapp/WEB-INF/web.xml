@@ -22,12 +22,21 @@
 <!-- 			<param-name>cache</param-name> -->
 <!-- 			<param-value>false</param-value> -->
 <!-- 		</init-param> -->
+        <init-param>
+            <param-name>layerName</param-name>
+            <param-value>Hubs</param-value>
+        </init-param>
+        <init-param>
+            <param-name>tilePattern</param-name>
+            <param-value>tile/hubs/${z}/${x}/${y}.png</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>TileServlet-Hubs</servlet-name>
 		<url-pattern>/tile/hubs/*</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>TileServlet-Leaves</servlet-name>
 		<servlet-class>org.trillinux.ipheatmap.server.TileServlet</servlet-class>
@@ -47,8 +56,16 @@
 <!-- 			<param-name>cache</param-name> -->
 <!-- 			<param-value>false</param-value> -->
 <!-- 		</init-param> -->
+        <init-param>
+            <param-name>layerName</param-name>
+            <param-value>Leaves</param-value>
+        </init-param>
+        <init-param>
+            <param-name>tilePattern</param-name>
+            <param-value>tile/leaves/${z}/${x}/${y}.png</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>TileServlet-Leaves</servlet-name>
 		<url-pattern>/tile/leaves/*</url-pattern>

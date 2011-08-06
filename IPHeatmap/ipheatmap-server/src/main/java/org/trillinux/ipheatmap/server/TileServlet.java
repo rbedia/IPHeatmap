@@ -54,6 +54,17 @@ public class TileServlet extends HttpServlet {
         if (cacheStr != null && cacheStr.equals("false")) {
             cache = false;
         }
+
+        String layerName = getServletConfig().getInitParameter("layerName");
+        String pattern = getServletConfig().getInitParameter("tilePattern");
+        Layer layer = new Layer(layerName, pattern);
+        LayerRegistrar.getInstance().addLayer(layer);
+    }
+
+    @Override
+    public void destroy() {
+        String layerName = getServletConfig().getInitParameter("layerName");
+        LayerRegistrar.getInstance().removeLayer(layerName);
     }
 
     /**
