@@ -42,28 +42,26 @@ public class IPMap {
 
     private static final int NUM_DATA_COLORS = 256;
 
-    private final int bitsPerPixel;
+    private int bitsPerPixel;
 
     private final int hilbertOrder;
 
-    private final int imageWidth;
+    private int imageWidth;
 
-    private final int imageHeight;
+    private int imageHeight;
 
     private BufferedImage bimage;
-
-    private Graphics2D g2d;
 
     private final BBoxUtil bboxUtil;
 
     private Color[] colors;
 
-    private final BBox subset;
-    private final Point offset;
+    private BBox subset;
+    private Point offset;
 
-    private final List<IPMapping> iplists;
+    private List<IPMapping> iplists;
 
-    private final int[][] ipCounts;
+    private int[][] ipCounts;
 
     private int maxCount = 0;
 
@@ -81,48 +79,27 @@ public class IPMap {
      * resulting image.
      */
     public IPMap(CIDR cidr, int bitsPerPixel) {
-        iplists = new ArrayList<IPMapping>();
-        this.bitsPerPixel = bitsPerPixel;
-
         hilbertOrder = (ADDR_SPACE_BITS - bitsPerPixel) / 2;
-
         bboxUtil = new BBoxUtil(hilbertOrder, bitsPerPixel);
-
-        int bitsPerImage = ADDR_SPACE_BITS - cidr.getMask();
-
-        subset = bboxUtil.boundingBox(cidr);
-        offset = new Point(subset.getXmin(), subset.getYmin());
-
-        int size = (bitsPerImage - bitsPerPixel) / 2;
-
-        imageWidth = 1 << size;
-        imageHeight = 1 << size;
-
-        ipCounts = new int[imageWidth][imageHeight];
-
-        loadColors();
+        init(bboxUtil.boundingBox(cidr), cidr.getMask(), bitsPerPixel);
     }
 
     public IPMap(BBox subset, int mask, int bitsPerPixel) {
-        iplists = new ArrayList<IPMapping>();
-        this.bitsPerPixel = bitsPerPixel;
-
         hilbertOrder = (ADDR_SPACE_BITS - bitsPerPixel) / 2;
-
         bboxUtil = new BBoxUtil(hilbertOrder, bitsPerPixel);
+        init(subset, mask, bitsPerPixel);
+    }
 
+    private void init(BBox subset, int mask, int bitsPerPixel) {
+        this.bitsPerPixel = bitsPerPixel;
+        iplists = new ArrayList<IPMapping>();
         int bitsPerImage = ADDR_SPACE_BITS - mask;
-
         this.subset = subset;
         offset = new Point(subset.getXmin(), subset.getYmin());
-
         int size = (bitsPerImage - bitsPerPixel) / 2;
-
         imageWidth = 1 << size;
         imageHeight = 1 << size;
-
         ipCounts = new int[imageWidth][imageHeight];
-
         loadColors();
     }
 
@@ -178,7 +155,7 @@ public class IPMap {
 
         bimage = new BufferedImage(imageWidth, imageHeight,
                 BufferedImage.TYPE_INT_ARGB);
-        g2d = bimage.createGraphics();
+        Graphics2D g2d = bimage.createGraphics();
 
         // Set background to black
         g2d.setColor(new Color(0, 0, 0));
@@ -192,7 +169,7 @@ public class IPMap {
         FileReader reader = new FileReader(labelFile);
         List<Annotation> annotations = Annotate.readLabelFile(reader);
         reader.close();
-        drawLabels(annotations);
+        drawLabels(g2d, annotations);
     }
 
     private void drawIPs() {
@@ -259,7 +236,7 @@ public class IPMap {
         p.y -= offset.y;
     }
 
-    private void drawLabels(List<Annotation> annotations) {
+    private void drawLabels(Graphics2D g2d, List<Annotation> annotations) {
         for (Annotation annotation : annotations) {
             BBox bbox = bboxUtil.boundingBox(annotation.getCidr());
 
@@ -280,7 +257,7 @@ public class IPMap {
 
                 txtBBox.shrink(3, 2);
 
-                Font font = getFont(txtBBox, annotation.getLabel(), 128);
+                Font font = getFont(g2d, txtBBox, annotation.getLabel(), 128);
                 if (font != null) {
                     g2d.setFont(font);
                     g2d.drawString(annotation.getLabel(), txtBBox.getXmin(),
@@ -293,7 +270,7 @@ public class IPMap {
                     subBBox.shrink(2, 1);
 
                     String text = annotation.getSublabel();
-                    Font subFont = getFont(subBBox, text, 12);
+                    Font subFont = getFont(g2d, subBBox, text, 12);
                     if (subFont != null) {
                         g2d.setFont(subFont);
                         g2d.drawString(text, subBBox.getXmin(),
@@ -304,7 +281,7 @@ public class IPMap {
         }
     }
 
-    private Font getFont(BBox bbox, String text, int fontSize) {
+    private Font getFont(Graphics2D g2d, BBox bbox, String text, int fontSize) {
         int bboxWidth = bbox.getXmax() - bbox.getXmin();
         int bboxHeight = bbox.getYmax() - bbox.getYmin();
 
