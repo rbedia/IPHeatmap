@@ -7,6 +7,21 @@
 	    <script type="text/javascript" src="hilbert.js"></script>
 	    <script type="text/javascript" src="ip.js"></script>
 	    <script type="text/javascript" src="map.js"></script>
+	    <script type="text/javascript">
+    	    var map;
+
+		    function start() {
+		        map = createMap();
+		        <%
+		        for (Layer layer: LayerRegistrar.getInstance().getLayers()) {
+		        %>
+		        addLayer("<%=layer.getName()%>", "<%=layer.getPath()%>");
+		        <%    
+		        }
+		        %>
+		        map.zoomToMaxExtent();
+		    }
+	    </script>
 	    <style type="text/css">
 	        /* avoid pink tiles */
 	        .olImageLoadError {
@@ -14,22 +29,13 @@
 	        }
 	    </style>
 	</head>
-    <body>
-		IP Address: <input id="ipField" type="text" value="<%= request.getRemoteAddr() %>">
-		<input id="search" type="button" value="Locate" onclick="searchClick()">
-		<span>Clicked location:</span> <span id="currentLocation"></span>
+    <body onload="start()">
+        <div id="controls">
+			IP Address: <input id="ipField" type="text" value="<%= request.getRemoteAddr() %>">
+			<input id="search" type="button" value="Locate" onclick="searchClick()">
+			<span>Clicked location:</span> <span id="currentLocation"></span>
+		</div>
 		<div style="width:100%; height:100%" id="map"></div>
-		<script defer="defer" type="text/javascript">
-		var map = createMap();
-		<%
-		for (Layer layer: LayerRegistrar.getInstance().getLayers()) {
-		%>
-		map.addLayer(new OpenLayers.Layer.XYZ("<%=layer.getName()%>", "<%=layer.getPath()%>", {numZoomLevels: 10, alpha: true, layers: 'basic'}));
-		<%    
-		}
-		%>
-		map.zoomToMaxExtent();
-		</script>
     </body>
 </html>
 

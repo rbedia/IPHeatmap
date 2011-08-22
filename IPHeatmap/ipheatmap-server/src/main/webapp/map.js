@@ -1,3 +1,4 @@
+
 function searchClick() {
 	var zoom = map.getZoom();
 	var scale = Math.pow(2, zoom - 1) * 256; // one edge length
@@ -9,6 +10,10 @@ function searchClick() {
 	var lat = -(y * 180 / scale - 90);
 	var lonlat = new OpenLayers.LonLat(lon, lat);
 	map.setCenter(lonlat, 6);
+}
+
+function addLayer(name, path) {
+	map.addLayer(new OpenLayers.Layer.XYZ(name, path, {numZoomLevels: 10, alpha: true, layers: 'basic'}));
 }
 
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
