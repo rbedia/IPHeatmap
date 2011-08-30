@@ -101,6 +101,8 @@ public class IPMap {
         imageHeight = 1 << size;
         ipCounts = new int[imageWidth][imageHeight];
         loadColors();
+        bimage = new BufferedImage(imageWidth, imageHeight,
+                BufferedImage.TYPE_INT_ARGB);
     }
 
     /**
@@ -150,21 +152,26 @@ public class IPMap {
         ImageIO.write(bimage, "png", out);
     }
 
-    public void start() throws IOException {
-        countIPs();
-
-        bimage = new BufferedImage(imageWidth, imageHeight,
-                BufferedImage.TYPE_INT_ARGB);
+    public void startIPMap() throws IOException {
         Graphics2D g2d = bimage.createGraphics();
 
         // Set background to black
         g2d.setColor(new Color(0, 0, 0));
         g2d.fillRect(0, 0, imageWidth, imageHeight);
 
+        countIPs();
         drawIPs();
+    }
+
+    public void startLabelMap() throws IOException {
+        Graphics2D g2d = bimage.createGraphics();
+
+        // Set background transparent
+        g2d.setColor(new Color(0, 0, 0, 0));
+        g2d.fillRect(0, 0, imageWidth, imageHeight);
 
         // Transparent white for drawing the labels on top of the heatmap
-        g2d.setColor(new Color(255, 255, 255, 120));
+        g2d.setColor(new Color(255, 255, 255, 180));
 
         FileReader reader = new FileReader(labelFile);
         List<Annotation> annotations = Annotate.readLabelFile(reader);
@@ -334,7 +341,7 @@ public class IPMap {
         IPMap h = new IPMap(cidr, 4);
         h.setLabelFile(new File("/home/rafael/crawler/network-labels.txt"));
         h.addIPMapping(new IPMapping(new CIDR("0.0.0.0/0"), new File(file)));
-        h.start();
+        h.startLabelMap();
         h.saveImage(new File("test.png"));
 
         System.out.println((System.currentTimeMillis() - now) / 1000.0);

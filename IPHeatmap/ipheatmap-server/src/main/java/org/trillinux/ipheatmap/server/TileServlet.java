@@ -47,9 +47,18 @@ public class TileServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ipDir = new File(getServletConfig().getInitParameter("ipDir"));
-        labelFile = new File(getServletConfig().getInitParameter("labelFile"));
-        cacheDir = new File(getServletConfig().getInitParameter("cacheDir"));
+        String ipDirPar = getServletConfig().getInitParameter("ipDir");
+        if (ipDirPar != null) {
+            ipDir = new File(ipDirPar);
+        }
+        String labelFilePar = getServletConfig().getInitParameter("labelFile");
+        if (labelFilePar != null) {
+            labelFile = new File(labelFilePar);
+        }
+        String cacheDirPar = getServletConfig().getInitParameter("cacheDir");
+        if (labelFilePar != null) {
+            cacheDir = new File(cacheDirPar);
+        }
         String cacheStr = getServletConfig().getInitParameter("cache");
         if (cacheStr != null && cacheStr.equals("false")) {
             cache = false;
@@ -58,7 +67,10 @@ public class TileServlet extends HttpServlet {
         String layerName = getServletConfig().getInitParameter("layerName");
         String pattern = getServletConfig().getInitParameter("tilePattern");
         Layer layer = new Layer(layerName, pattern);
-        LayerRegistrar.getInstance().addLayer(layer);
+
+        if (ipDir != null) {
+            LayerRegistrar.getInstance().addLayer(layer);
+        }
     }
 
     @Override

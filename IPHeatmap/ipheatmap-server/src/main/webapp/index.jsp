@@ -19,6 +19,9 @@
 		        <%    
 		        }
 		        %>
+                var labelLayer = new OpenLayers.Layer.XYZ('Labels', 'tile/labels/\${z}/\${x}/\${y}.png', {numZoomLevels: 10, alpha: true, layers: 'basic'});
+                labelLayer.setIsBaseLayer(false);       
+                map.addLayer(labelLayer);
 		        map.zoomToMaxExtent();
 		    }
 	    </script>

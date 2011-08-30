@@ -75,9 +75,13 @@ public class Tile {
 
             IPMap h = new IPMap(box, maskBits, 16 - maskBits);
 
-            h.addIPMappings(IPListLoader.readMappings(ipDir));
-            h.setLabelFile(labelFile);
-            h.start();
+            if (ipDir != null) {
+                h.addIPMappings(IPListLoader.readMappings(ipDir));
+                h.startIPMap();
+            } else {
+                h.setLabelFile(labelFile);
+                h.startLabelMap();
+            }
 
             File tileFile = getTileFile(x, y, z);
             File dir = tileFile.getParentFile();

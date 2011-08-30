@@ -78,7 +78,7 @@ public class Tiler {
 
                 h.addIPMappings(IPListLoader.readMappings(ipDir));
                 h.setLabelFile(labelFile);
-                h.start();
+                h.startIPMap();
 
                 Point offset = h.getOffset();
                 int x = offset.x / 256;

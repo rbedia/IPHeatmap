@@ -3,6 +3,35 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+    <servlet>
+        <servlet-name>TileServlet-Labels</servlet-name>
+        <servlet-class>org.trillinux.ipheatmap.server.TileServlet</servlet-class>
+        <init-param>
+            <param-name>cacheDir</param-name>
+            <param-value>/home/rafael/crawler/tile-cache/labels</param-value>
+        </init-param>
+        <init-param>
+            <param-name>labelFile</param-name>
+            <param-value>/home/rafael/crawler/network-labels.txt</param-value>
+        </init-param>
+<!--        <init-param> -->
+<!--            <param-name>cache</param-name> -->
+<!--            <param-value>false</param-value> -->
+<!--        </init-param> -->
+        <init-param>
+            <param-name>layerName</param-name>
+            <param-value>Labels</param-value>
+        </init-param>
+        <init-param>
+            <param-name>tilePattern</param-name>
+            <param-value>tile/labels/${z}/${x}/${y}.png</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TileServlet-Labels</servlet-name>
+        <url-pattern>/tile/labels/*</url-pattern>
+    </servlet-mapping>
 	<servlet>
 		<servlet-name>TileServlet-Hubs</servlet-name>
 		<servlet-class>org.trillinux.ipheatmap.server.TileServlet</servlet-class>
