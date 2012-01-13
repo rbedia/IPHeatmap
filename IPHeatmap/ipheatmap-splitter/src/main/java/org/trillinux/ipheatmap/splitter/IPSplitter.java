@@ -19,13 +19,10 @@
 package org.trillinux.ipheatmap.splitter;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.trillinux.ipheatmap.common.CIDR;
 import org.trillinux.ipheatmap.common.IPUtil;
 
 /**
@@ -54,47 +51,39 @@ public class IPSplitter {
     }
 
     public void start() throws IOException {
+        long startTime = System.currentTimeMillis();
         directory.mkdir();
+
+        int cutoff = 0;
+        int max = 9;
+
+        IPStorer[] storers = new IPStorer[max];
+        for (int index = cutoff; index < max; index++) {
+            storers[index] = new IPStorer(directory, index * 2, 16);
+        }
 
         BufferedReader reader = new BufferedReader(new FileReader(input));
         String line;
-        String previousKey = "";
-        FileOutputStream fileIndexOut = new FileOutputStream(new File(
-                directory, "index.txt"));
-        DataOutputStream indexOut = new DataOutputStream(fileIndexOut);
-        DataOutputStream out = null;
-
+        int counter = 0;
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\.");
-            File level1 = new File(directory, parts[0]);
-            String key = parts[0] + "." + parts[1];
-            if (!previousKey.equals(key)) {
-                if (out != null) {
-                    out.close();
-                }
-                level1.mkdir();
-                int mask = 16;
-                String filename = String.format("%s.%s.0.0-%d", parts[0],
-                        parts[1], mask);
-                File ipFile = new File(level1, filename);
-                FileOutputStream fileOut = new FileOutputStream(ipFile);
-                out = new DataOutputStream(fileOut);
-
-                String cidrStr = String.format("%s.%s.0.0/%d", parts[0],
-                        parts[1], mask);
-                CIDR cidr = new CIDR(cidrStr);
-                indexOut.writeLong(cidr.getStart());
-                indexOut.writeLong(cidr.getEnd());
-                indexOut.writeInt(cidr.getMask());
-                indexOut.writeUTF(parts[0] + '/' + filename);
+            counter++;
+            int ip = IPUtil.ipToInt(line);
+            for (int index = cutoff; index < max; index++) {
+                int hostbits = index * 2;
+                int mask = (0xFFFFFFFF >> hostbits) << hostbits;
+                int subnet = (ip & mask) & 0xFFFFFFFF;
+                storers[index].add(subnet);
             }
-            out.writeLong(IPUtil.ipToInt(line));
-            previousKey = key;
+            if (counter % 1000000 == 0) {
+                long elapsed = (System.currentTimeMillis() - startTime) / 1000;
+                System.out.println(String.format("%12d - %12d", counter,
+                        elapsed));
+            }
         }
-        if (out != null) {
-            out.close();
+
+        for (int i = cutoff; i < max; i++) {
+            storers[i].close();
         }
-        indexOut.close();
     }
 
     /**
@@ -110,8 +99,8 @@ public class IPSplitter {
             System.exit(1);
         }
 
-        IPSplitter splitter = new IPSplitter(new File(args[0]), new File(
-                args[1]));
+        IPSplitter splitter = new IPSplitter(new File(args[0]),
+                new File(args[1]));
         splitter.start();
     }
 

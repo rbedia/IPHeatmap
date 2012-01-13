@@ -56,13 +56,16 @@ public final class IPListLoader {
             DataInputStream in = new DataInputStream(fileIn);
 
             try {
+                byte type = in.readByte();
+
                 while (true) {
                     long start = in.readLong();
                     long end = in.readLong();
                     int mask = in.readInt();
                     CIDR cidr = new CIDR(start, end, mask);
                     String filePath = in.readUTF();
-                    mappings.add(new IPMapping(cidr, new File(ipDir, filePath)));
+                    mappings.add(new IPMapping(cidr, new File(ipDir, filePath),
+                            type));
                 }
             } catch (EOFException ex) {
 

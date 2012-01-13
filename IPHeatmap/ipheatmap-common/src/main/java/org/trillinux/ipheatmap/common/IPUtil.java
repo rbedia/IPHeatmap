@@ -70,4 +70,26 @@ public final class IPUtil {
 
         return out.toString();
     }
+
+    /**
+     * Converts the text form of an IP address to a long.
+     * 
+     * @param addr
+     * @return
+     */
+    public static long ipToLong(final String addr) {
+        final String[] addressBytes = addr.split("\\.");
+
+        if (addressBytes.length != 4) {
+            throw new IllegalArgumentException("IPs have the format x.x.x.x");
+        }
+
+        long ip = 0;
+        for (int i = 0; i < 4; i++) {
+            ip <<= 8;
+            ip |= Integer.parseInt(addressBytes[i]);
+        }
+        return ip;
+    }
+
 }

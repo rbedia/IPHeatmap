@@ -31,16 +31,19 @@ public class IPMapping {
 
     private final File ipFile;
 
+    private final byte type;
+
     /**
      * Creates an IP mapping.
      * 
      * @param range
      * @param ipFile
      */
-    public IPMapping(CIDR range, File ipFile) {
+    public IPMapping(CIDR range, File ipFile, byte type) {
         super();
         this.range = range;
         this.ipFile = ipFile;
+        this.type = type;
     }
 
     /**
@@ -55,6 +58,13 @@ public class IPMapping {
      */
     public File getIpFile() {
         return ipFile;
+    }
+
+    /**
+     * @return the type
+     */
+    public byte getType() {
+        return type;
     }
 
     /**

@@ -25,7 +25,7 @@ package org.trillinux.ipheatmap.common;
  */
 public class CIDR {
 
-    private static final long MAX_IP = 0xFFFFFFFFl;
+    public static final long MAX_IP = 0xFFFFFFFFl;
 
     private long start;
 

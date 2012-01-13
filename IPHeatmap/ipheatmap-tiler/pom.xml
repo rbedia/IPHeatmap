@@ -17,6 +17,11 @@
 			<artifactId>ipheatmap-common</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.jopt-simple</groupId>
+			<artifactId>jopt-simple</artifactId>
+			<version>4.0-beta1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

@@ -22,6 +22,9 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+
 import org.trillinux.ipheatmap.common.CIDR;
 import org.trillinux.ipheatmap.common.IPListLoader;
 import org.trillinux.ipheatmap.common.IPMap;
@@ -76,9 +79,15 @@ public class Tiler {
                 CIDR cidr = new CIDR(cidrStr);
                 IPMap h = new IPMap(cidr, 16 - maskBits);
 
-                h.addIPMappings(IPListLoader.readMappings(ipDir));
-                h.setLabelFile(labelFile);
-                h.startIPMap();
+                if (ipDir != null) {
+                    File dir = new File(ipDir, Integer.toString(16 - maskBits));
+                    h.addIPMappings(IPListLoader.readMappings(dir));
+                    h.setLabelFile(labelFile);
+                    h.startIPMap();
+                } else {
+                    h.setLabelFile(labelFile);
+                    h.startLabelMap();
+                }
 
                 Point offset = h.getOffset();
                 int x = offset.x / 256;
@@ -114,13 +123,29 @@ public class Tiler {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        if (args.length != 3) {
-            System.out.println("Expected: ipDir outputDir labelFile");
+        OptionParser parser = new OptionParser("i:l:o:");
+        OptionSet options = parser.parse(args);
+
+        if (!options.hasArgument("o")) {
+            System.out.println("Output directory required. Use -o");
+            System.exit(1);
+        }
+        if (!options.hasArgument("i") && !options.hasArgument("l")) {
+            System.out.println("Must specify an ipDir or a labelFile");
+            System.exit(1);
         }
 
-        File ipDir = new File(args[0]);
-        File outputDir = new File(args[1]);
-        File labelFile = new File(args[2]);
+        File outputDir = new File((String) options.valueOf("o"));
+        File ipDir = null;
+        File labelFile = null;
+
+        if (options.hasArgument("i")) {
+            ipDir = new File((String) options.valueOf("i"));
+        }
+
+        if (options.hasArgument("l")) {
+            labelFile = new File((String) options.valueOf("l"));
+        }
 
         Tiler tiler = new Tiler(ipDir, labelFile, outputDir);
         tiler.generate();

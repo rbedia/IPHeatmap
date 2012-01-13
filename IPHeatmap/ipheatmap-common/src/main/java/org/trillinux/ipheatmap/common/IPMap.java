@@ -24,7 +24,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+
+import org.trillinux.ipheatmap.common.list.GroupCount;
+import org.trillinux.ipheatmap.common.list.GroupListInputStream;
 
 public class IPMap {
 
@@ -65,7 +67,7 @@ public class IPMap {
 
     private int maxCount = 0;
 
-    private File labelFile = new File("network-labels.txt");
+    private File labelFile = null;
 
     /**
      * Creates an IP heatmap.
@@ -161,6 +163,16 @@ public class IPMap {
 
         countIPs();
         drawIPs();
+
+        if (labelFile != null) {
+            // Transparent white for drawing the labels on top of the heatmap
+            g2d.setColor(new Color(255, 255, 255, 180));
+
+            FileReader reader = new FileReader(labelFile);
+            List<Annotation> annotations = Annotate.readLabelFile(reader);
+            reader.close();
+            drawLabels(g2d, annotations);
+        }
     }
 
     public void startLabelMap() throws IOException {
@@ -206,18 +218,26 @@ public class IPMap {
             BBox ipBox = bboxUtil.boundingBox(iplist.getRange());
             if (subset.overlaps(ipBox)) {
                 FileInputStream fileIn = new FileInputStream(iplist.getIpFile());
-                DataInputStream in = new DataInputStream(fileIn);
+                if (iplist.getType() != 1) {
+                    continue;
+                }
+                GroupListInputStream in = new GroupListInputStream(fileIn);
 
                 try {
                     while (true) {
-                        long ip = in.readLong();
-                        ip >>= bitsPerPixel;
-                        Point p = Hilbert.getPoint(ip, hilbertOrder);
-                        remapPoint(p);
-                        if (pointInImage(p)) {
-                            ipCounts[p.x][p.y]++;
-                            if (ipCounts[p.x][p.y] > maxCount) {
-                                maxCount = ipCounts[p.x][p.y];
+                        GroupCount record = in.readRecord();
+                        long subnet = record.getSubnet();
+                        int hostbits = record.getHostbits();
+                        int count = record.getCount();
+                        if (hostbits <= bitsPerPixel) {
+                            subnet >>= bitsPerPixel;
+                            Point p = Hilbert.getPoint(subnet, hilbertOrder);
+                            remapPoint(p);
+                            if (pointInImage(p)) {
+                                ipCounts[p.x][p.y] += count;
+                                if (ipCounts[p.x][p.y] > maxCount) {
+                                    maxCount = ipCounts[p.x][p.y];
+                                }
                             }
                         }
                     }
@@ -336,12 +356,17 @@ public class IPMap {
      */
     public static void main(String[] args) throws Exception {
         long now = System.currentTimeMillis();
-        CIDR cidr = new CIDR("0.0.0.0/2");
-        String file = "/home/rafael/crawler/hubs.txt";
-        IPMap h = new IPMap(cidr, 4);
+        CIDR cidr = new CIDR("80.0.0.0/8");
+        int bitsPerPixel = 4;
+        String directory = "/home/rafael/crawler/leaves-tiered/" + bitsPerPixel;
+
+        // String file = "/home/rafael/crawler/leaves-tiered/0.txt";
+        // String file = "/home/rafael/crawler/hubs.txt";
+        IPMap h = new IPMap(cidr, bitsPerPixel);
         h.setLabelFile(new File("/home/rafael/crawler/network-labels.txt"));
-        h.addIPMapping(new IPMapping(new CIDR("0.0.0.0/0"), new File(file)));
-        h.startLabelMap();
+        // h.addIPMapping(new IPMapping(new CIDR("0.0.0.0/0"), new File(file)));
+        h.addIPMappings(IPListLoader.readMappings(new File(directory)));
+        h.startIPMap();
         h.saveImage(new File("test.png"));
 
         System.out.println((System.currentTimeMillis() - now) / 1000.0);
