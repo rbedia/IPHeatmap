@@ -44,6 +44,8 @@ public class IPMap {
 
     private static final int NUM_DATA_COLORS = 256;
 
+    private static final int MIN_BLOCK_SIZE = 4;
+
     private int bitsPerPixel;
 
     private final int hilbertOrder;
@@ -272,6 +274,12 @@ public class IPMap {
 
                 int width = bbox.getXmax() - bbox.getXmin();
                 int height = bbox.getYmax() - bbox.getYmin();
+
+                // Filter boxes that are so small that all they do is clutter.
+                if (width < MIN_BLOCK_SIZE || height < MIN_BLOCK_SIZE) {
+                    continue;
+                }
+
                 g2d.drawRect(bbox.getXmin(), bbox.getYmin(), width, height);
 
                 String sublabel = annotation.getSublabel();
