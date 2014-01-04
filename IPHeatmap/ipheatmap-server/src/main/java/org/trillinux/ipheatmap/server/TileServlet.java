@@ -20,6 +20,8 @@ package org.trillinux.ipheatmap.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -69,7 +71,11 @@ public class TileServlet extends HttpServlet {
         Layer layer = new Layer(layerName, pattern);
 
         if (ipDir != null) {
-            LayerRegistrar.getInstance().addLayer(layer);
+            if (ipDir.isDirectory()) {
+                LayerRegistrar.getInstance().addLayer(layer);
+            } else {
+                Logger.getLogger(TileServlet.class.getName()).log(Level.WARNING, "ipDir ''{0}'' is not a directory.", ipDir);
+            }
         }
     }
 
