@@ -50,7 +50,7 @@ public class IPStorer {
         indexOut.writeByte(1); // the index type, 1 for tiered
     }
 
-    public void add(int subnet) throws IOException {
+    public synchronized void add(int subnet) throws IOException {
         int newBucketSubnet = (subnet & bucketMask) & 0xFFFFFFFF;
         if (newBucketSubnet != curBucketSubnet) {
             if (stream != null) {

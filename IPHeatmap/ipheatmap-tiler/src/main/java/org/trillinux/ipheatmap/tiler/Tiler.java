@@ -21,6 +21,9 @@ package org.trillinux.ipheatmap.tiler;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -36,7 +39,10 @@ import org.trillinux.ipheatmap.common.IPUtil;
  * @author Rafael Bedia
  */
 public class Tiler {
-
+    private static final int THREADS = 8;
+    
+    private ExecutorService executor;
+    
     private final File ipDir;
 
     private final File labelFile;
@@ -58,6 +64,20 @@ public class Tiler {
         this.ipDir = ipDir;
         this.labelFile = labelFile;
         this.outputDir = outputDir;
+        
+        this.executor = Executors.newFixedThreadPool(THREADS);
+    }
+
+    /**
+     * Generates the tiles for all zoom levels.
+     */
+    public void generate() throws InterruptedException {
+        for (int i = 0; i <= 16; i += 2) {
+            generateLevel(i);
+        }
+        
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.DAYS);
     }
 
     /**
@@ -71,6 +91,28 @@ public class Tiler {
         int count = 1 << maskBits;
         int lowerBits = 32 - maskBits;
         for (int i = 0; i < count; i++) {
+            executor.execute(new TileRunnable(i, lowerBits, maskBits));
+        }
+    }
+    
+    private class TileRunnable implements Runnable {
+
+        private int i;
+        private int lowerBits;
+        private int maskBits;
+
+        public TileRunnable(int i, int lowerBits, int maskBits) {
+            this.i = i;
+            this.lowerBits = lowerBits;
+            this.maskBits = maskBits;
+        }
+        
+        @Override
+        public void run() {
+            createTile(i, lowerBits, maskBits);
+        }
+
+        private void createTile(int i, int lowerBits, int maskBits) {
             try {
                 int subnet = i << lowerBits;
                 String cidrStr = IPUtil.intToIp(subnet) + "/" + maskBits;
@@ -108,17 +150,9 @@ public class Tiler {
                 ex.printStackTrace();
             }
         }
-    }
 
-    /**
-     * Generates the tiles for all zoom levels.
-     */
-    public void generate() {
-        for (int i = 0; i <= 16; i += 2) {
-            generateLevel(i);
-        }
     }
-
+    
     /**
      * @param args
      */
