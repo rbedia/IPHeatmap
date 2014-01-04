@@ -124,7 +124,15 @@ public class TileServlet extends HttpServlet {
 
         response.setContentType("image/png");
 
-        Tile tile = new Tile(ipDir, labelFile, cacheDir);
+        // Find the best resolution ipDir to use for generating tiles
+        File subIpDir = null;
+        if (ipDir != null) {
+            int ipDirLevel = 16 - ((z - 1) * 2);
+            ipDirLevel = ipDirLevel > 16 ? 16 : ipDirLevel;
+            ipDirLevel = ipDirLevel < 0 ? 0 : ipDirLevel;
+            subIpDir = new File(ipDir, "" + ipDirLevel);
+        }
+        Tile tile = new Tile(subIpDir, labelFile, cacheDir);
         if (cache && !nocache && tile.tileExists(x, y, z)) {
             tile.writeCachedTile(x, y, z, output);
         } else {
