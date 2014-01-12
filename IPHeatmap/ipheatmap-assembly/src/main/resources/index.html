@@ -1,0 +1,38 @@
+<html>
+	<head>
+        <title>Gnutella2 Network IP Distribution Map</title>
+	    <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+	    <script type="text/javascript" src="js/hilbert.js"></script>
+	    <script type="text/javascript" src="js/ip.js"></script>
+	    <script type="text/javascript" src="js/map.js"></script>
+	    <script type="text/javascript">
+    	    var map;
+
+		    function start() {
+		        map = createMap();
+		        addLayer("Data", "tiles/\${z}/\${x}/\${y}.png");
+/*
+                var labelLayer = new OpenLayers.Layer.XYZ('Labels', 'tile/labels/\${z}/\${x}/\${y}.png', {numZoomLevels: 10, alpha: true, layers: 'basic'});
+                labelLayer.setIsBaseLayer(false);       
+                map.addLayer(labelLayer);
+*/
+		        map.zoomToMaxExtent();
+		    }
+	    </script>
+	    <style type="text/css">
+	        /* avoid pink tiles */
+	        .olImageLoadError {
+	            background-color: transparent !important;
+	        }
+	    </style>
+	</head>
+    <body onload="start()">
+        <div id="controls">
+			IP Address: <input id="ipField" type="text" value="0.0.0.0">
+			<input id="search" type="button" value="Locate" onclick="searchClick()">
+			<span>Clicked location:</span> <span id="currentLocation"></span>
+		</div>
+		<div style="width:100%; height:100%" id="map"></div>
+    </body>
+</html>
+

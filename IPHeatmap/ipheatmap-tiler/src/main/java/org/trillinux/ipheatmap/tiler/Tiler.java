@@ -165,7 +165,7 @@ public class Tiler {
             System.exit(1);
         }
         if (!options.hasArgument("i") && !options.hasArgument("l")) {
-            System.out.println("Must specify an ipDir or a labelFile");
+            System.out.println("Must specify -i ipDir or -l labelFile");
             System.exit(1);
         }
 

@@ -23,11 +23,13 @@
 			<groupId>org.trillinux.ipheatmap.splitter</groupId>
 			<artifactId>ipheatmap-splitter</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+                        <classifier>run</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.trillinux.ipheatmap.tiler</groupId>
 			<artifactId>ipheatmap-tiler</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+                        <classifier>run</classifier>
 		</dependency>
 	</dependencies>
 	<build>

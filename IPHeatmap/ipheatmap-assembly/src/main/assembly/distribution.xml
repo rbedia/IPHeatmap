@@ -11,8 +11,14 @@
   <dependencySets>
     <dependencySet>
       <outputDirectory>/</outputDirectory>
-      <useProjectArtifact>true</useProjectArtifact>
-      <scope>runtime</scope>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
     </dependencySet>
   </dependencySets>
+  <fileSets>
+      <fileSet>
+          <directory>src/main/resources</directory>
+          <outputDirectory>/</outputDirectory>
+      </fileSet>
+  </fileSets>
 </assembly>
