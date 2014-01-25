@@ -3,6 +3,8 @@ IPHeatmap
 
 IPHeatmap is a tool for creating interactive IPv4 heatmaps. It allows zooming and panning to get a more detailed view of the IPv4 address space.
 
+A live demo is available on the [Gnutella2 Network IP Map](http://doxu.org/g2map/).
+
 This project was inspired by, and based on, the [ipv4-heatmap](http://maps.measurement-factory.com/) tool.
 
 It maps the IPv4 address space into a two dimensional image using a [Hilbert curve](http://en.wikipedia.org/wiki/Hilbert_curve).
