@@ -42,6 +42,25 @@
 1.208.0.0/12	Bora	prefix
 1.224.0.0/11	SK Broadband	prefix
 2.0.0.0/8	RIPE	prefix
+2.0.0.0/12	FT Orange	prefix
+2.16.0.0/13	Akamai	prefix
+2.24.0.0/13	Orange	prefix
+2.32.0.0/12	Vodafone	prefix
+2.48.0.0/14	Emirates	prefix
+2.60.0.0/14	JSC	prefix
+2.64.0.0/13	HI3G	prefix
+2.72.0.0/13	KCell	prefix
+2.80.0.0/14	PT	prefix
+2.84.0.0/14	OTE	prefix
+2.88.0.0/14	STC	prefix
+2.92.0.0/14	Corbina	prefix
+2.96.0.0/13	Opal	prefix
+2.136.0.0/14	RIMA	prefix
+2.156.0.0/14	H3G	prefix
+2.172.0.0/14	T-Mobile (DE)	prefix
+2.176.0.0/15	TCT-DSL	prefix
+2.178.0.0/16	TCT-DSL	prefix
+2.179.0.0/16	ITC	prefix
 3.0.0.0/8	GE	prefix
 4.0.0.0/8	Level3	prefix
 5.0.0.0/8	RIPE	prefix
@@ -59,6 +78,9 @@
 14.0.0.0/8	APNIC	prefix
 14.96.0.0/14	TATA	prefix
 14.194.0.0/15	TATA	prefix
+14.206.0.0/16	Piranha	prefix
+14.207.0.0/16	Triple T	prefix
+14.208.0.0/12	China Telecom	prefix
 15.0.0.0/8	HP	prefix
 16.0.0.0/8	DEC	prefix
 17.0.0.0/8	Apple	prefix
@@ -518,8 +540,19 @@
 103.0.0.0/8	APNIC	prefix
 104.0.0.0/8	ARIN	prefix
 105.0.0.0/8	AfriNIC	prefix
+105.128.0.0/11	Maroc Telecom	prefix
 106.0.0.0/8	APNIC	prefix
 107.0.0.0/8	ARIN	prefix
+107.0.0.0/14	Comcast	prefix
+107.4.0.0/15	Comcast	prefix
+107.6.0.0/18	Peer 1	prefix
+107.6.64.0/18	Voxel	prefix
+107.6.128.0/18	Singlehop	prefix
+107.6.192.0/18	VPLS	prefix
+107.7.0.0/16	ITC Deltacom	prefix
+107.8.0.0/13	TW Cable	prefix
+107.24.0.0/13	Sprint	prefix
+107.32.0.0/11	Sprint	prefix
 108.0.0.0/8	ARIN	prefix
 108.0.0.0/11	Verizon	prefix
 108.32.0.0/12	Verizon	prefix
@@ -530,6 +563,16 @@
 109.0.0.0/8	RIPE	prefix
 110.0.0.0/7	APNIC	prefix
 112.0.0.0/4	APNIC	prefix
+115.134.0.0/15	TMNST	prefix
+115.136.0.0/13	LG Powercomm	prefix
+115.184.0.0/15	RCOM	prefix
+115.240.0.0/14	RCOM	prefix
+117.192.0.0/12	BSNL	prefix
+122.156.0.0/14	Unicom	prefix
+122.160.0.0/12	ABTS	prefix
+122.176.0.0/13	ABTS	prefix
+122.184.0.0/14	ABTS	prefix
+122.188.0.0/14	Unicom	prefix
 127.0.0.0/8	IANA - Loopback	prefix
 128.0.0.0/6	ARIN	prefix
 128.143.0.0/16	UVA	prefix
@@ -537,6 +580,7 @@
 132.0.0.0/8	ARIN	prefix
 132.199.0.0/16	DFN	prefix
 133.0.0.0/8	APNIC	prefix
+133.205.0.0/16	NEC Biglobe	prefix
 134.0.0.0/7	ARIN	prefix
 134.114.0.0/16	NAU	prefix
 134.129.0.0/16	NODAK	prefix
@@ -598,6 +642,13 @@
 181.0.0.0/8	LACNIC	prefix
 182.0.0.0/7	APNIC	prefix
 184.0.0.0/8	ARIN	prefix
+184.75.128.0/20	Cogeco	prefix
+184.76.0.0/14	Clearwire	prefix
+184.94.0.0/17	Allstream	prefix
+184.96.0.0/13	Qwest	prefix
+184.144.0.0/13	Bell Canada	prefix
+184.160.0.0/14	Videotron	prefix
+184.170.0.0/18	Digicel	prefix
 184.192.0.0/10	Sprint	prefix
 185.0.0.0/8	RIPE	prefix
 186.0.0.0/7	LACNIC	prefix
@@ -619,6 +670,7 @@
 189.224.0.0/11	Reduno	prefix
 190.0.0.0/7	LACNIC	prefix
 192.0.0.0/8	ARIN	prefix
+192.168.0.0/16	IANA - Private Use	prefix
 193.0.0.0/8	RIPE	prefix
 194.0.0.0/7	RIPE	prefix
 196.0.0.0/7	AfriNIC	prefix
