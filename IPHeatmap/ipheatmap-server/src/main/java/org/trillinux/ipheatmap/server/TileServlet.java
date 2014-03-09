@@ -42,10 +42,13 @@ public class TileServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    private static final int MAX_LEVEL = 16;
+    private static final int MIN_LEVEL = 0;
+
     private File ipDir;
     private File cacheDir;
     private File labelFile;
-    private boolean cache = true;
+    private boolean enableCache = true;
 
     @Override
     public void init() throws ServletException {
@@ -63,7 +66,7 @@ public class TileServlet extends HttpServlet {
         }
         String cacheStr = getServletConfig().getInitParameter("cache");
         if (cacheStr != null && cacheStr.equals("false")) {
-            cache = false;
+            enableCache = false;
         }
 
         String layerName = getServletConfig().getInitParameter("layerName");
@@ -90,59 +93,47 @@ public class TileServlet extends HttpServlet {
      * integers.
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getPathInfo();
-
-        if (!path.endsWith(".png")) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-        path = path.substring(0, path.length() - 4);
-
-        String[] parts = path.split("/");
-        if (parts.length != 4) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        int z = -1;
-        int x = -1;
-        int y = -1;
         try {
-            z = Integer.parseInt(parts[1]);
-            x = Integer.parseInt(parts[2]);
-            y = Integer.parseInt(parts[3]);
-        } catch (NumberFormatException ex) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            boolean nocache = request.getParameter("nocache") != null;
+            TileRequest tileRequest = new TileRequest(path, !nocache);
+
+            response.setContentType(tileRequest.contentType);
+            ServletOutputStream output = response.getOutputStream();
+
+            createTile(tileRequest, output);
+        } catch (TileRequestException ex) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(TileServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
         }
-
-        boolean nocache = request.getParameter("nocache") != null;
-
-        createTile(z, x, y, nocache, request, response);
     }
 
-    private void createTile(int z, int x, int y, boolean nocache,
-            HttpServletRequest request, HttpServletResponse response)
+    private void createTile(TileRequest tileRequest, ServletOutputStream output)
             throws IOException {
-        ServletOutputStream output = response.getOutputStream();
-
-        response.setContentType("image/png");
-
+        int z = tileRequest.z;
+        int x = tileRequest.x;
+        int y = tileRequest.y;
         // Find the best resolution ipDir to use for generating tiles
         File subIpDir = null;
         if (ipDir != null) {
-            int ipDirLevel = 16 - ((z - 1) * 2);
-            ipDirLevel = ipDirLevel > 16 ? 16 : ipDirLevel;
-            ipDirLevel = ipDirLevel < 0 ? 0 : ipDirLevel;
+            int ipDirLevel = MAX_LEVEL - ((z - 1) * 2);
+            ipDirLevel = constraintDirLevel(ipDirLevel);
             subIpDir = new File(ipDir, "" + ipDirLevel);
         }
         Tile tile = new Tile(subIpDir, labelFile, cacheDir);
-        if (cache && !nocache && tile.tileExists(x, y, z)) {
+        if (enableCache && tileRequest.cacheTile && tile.tileExists(x, y, z)) {
             tile.writeCachedTile(x, y, z, output);
         } else {
             tile.generate(x, y, z, output);
         }
+    }
+
+    private int constraintDirLevel(int level) {
+        level = level > MAX_LEVEL ? MAX_LEVEL : level;
+        level = level < MIN_LEVEL ? MIN_LEVEL : level;
+        return level;
     }
 }
