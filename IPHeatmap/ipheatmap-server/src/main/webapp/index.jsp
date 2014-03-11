@@ -24,6 +24,10 @@
         }
         </script>
         <style type="text/css">
+            #map {
+                width: 100%;
+                height: 100%;
+            }
             /* avoid pink tiles */
             .olImageLoadError {
                 background-color: transparent !important;
@@ -32,10 +36,10 @@
     </head>
     <body onload="start();">
         <div id="controls">
-			IP Address: <input id="ipField" type="text" value="<%= request.getRemoteAddr() %>">
-			<input id="search" type="button" value="Locate" onclick="searchClick();">
-                        <span>Clicked location:</span> <input id="currentLocation" type="text" readonly="readonly">
-		</div>
-		<div style="width:100%; height:100%" id="map"></div>
+            IP Address: <input id="ipField" type="text" value="<%= request.getRemoteAddr() %>">
+            <input id="search" type="button" value="Locate" onclick="searchClick();">
+            <span>Clicked location:</span> <input id="currentLocation" type="text" readonly="readonly">
+        </div>
+        <div id="map"></div>
     </body>
 </html>
