@@ -15,11 +15,10 @@
             <%
             for (Layer layer : LayerRegistrar.getInstance().getLayers()) {
             %>
-            addLayer("<%=layer.getName()%>", "<%=layer.getPath()%>", true);
+            addLayer("<%=layer.getName()%>", "<%=layer.getPath()%>", <%=layer.isBaseLayer() %>);
             <%
             }
             %>
-            addLayer('Labels', 'tile/labels/\${z}/\${x}/\${y}.png', false);
             map.zoomToMaxExtent();
         }
         </script>

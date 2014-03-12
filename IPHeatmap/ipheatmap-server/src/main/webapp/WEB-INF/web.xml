@@ -12,12 +12,12 @@
         </init-param>
         <init-param>
             <param-name>labelFile</param-name>
-            <param-value>/home/rafael/crawler/network-labels.txt</param-value>
+            <param-value>/home/rafael/git/IPHeatmap/IPHeatmap/network-labels.txt</param-value>
         </init-param>
-<!--        <init-param> -->
-<!--            <param-name>cache</param-name> -->
-<!--            <param-value>false</param-value> -->
-<!--        </init-param> -->
+        <init-param>
+            <param-name>cache</param-name>
+            <param-value>false</param-value>
+        </init-param>
         <init-param>
             <param-name>layerName</param-name>
             <param-value>Labels</param-value>
@@ -25,6 +25,10 @@
         <init-param>
             <param-name>tilePattern</param-name>
             <param-value>tile/labels/${z}/${x}/${y}.png</param-value>
+        </init-param>
+        <init-param>
+            <param-name>baseLayer</param-name>
+            <param-value>false</param-value>
         </init-param>
         <load-on-startup>0</load-on-startup>
     </servlet>
@@ -43,10 +47,12 @@
 			<param-name>cacheDir</param-name>
 			<param-value>/home/rafael/crawler/tile-cache/hubs</param-value>
 		</init-param>
+<!--
 		<init-param>
 			<param-name>labelFile</param-name>
 			<param-value>/home/rafael/crawler/network-labels.txt</param-value>
 		</init-param>
+-->
 <!-- 		<init-param> -->
 <!-- 			<param-name>cache</param-name> -->
 <!-- 			<param-value>false</param-value> -->
@@ -58,6 +64,10 @@
         <init-param>
             <param-name>tilePattern</param-name>
             <param-value>tile/hubs/${z}/${x}/${y}.png</param-value>
+        </init-param>
+        <init-param>
+            <param-name>baseLayer</param-name>
+            <param-value>true</param-value>
         </init-param>
         <load-on-startup>0</load-on-startup>
 	</servlet>
@@ -77,10 +87,12 @@
 			<param-name>cacheDir</param-name>
 			<param-value>/home/rafael/crawler/tile-cache/leaves</param-value>
 		</init-param>
+<!--
 		<init-param>
 			<param-name>labelFile</param-name>
 			<param-value>/home/rafael/crawler/network-labels.txt</param-value>
 		</init-param>
+-->
 <!-- 		<init-param> -->
 <!-- 			<param-name>cache</param-name> -->
 <!-- 			<param-value>false</param-value> -->
@@ -92,6 +104,10 @@
         <init-param>
             <param-name>tilePattern</param-name>
             <param-value>tile/leaves/${z}/${x}/${y}.png</param-value>
+        </init-param>
+        <init-param>
+            <param-name>baseLayer</param-name>
+            <param-value>true</param-value>
         </init-param>
         <load-on-startup>0</load-on-startup>
 	</servlet>

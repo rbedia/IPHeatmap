@@ -61,7 +61,7 @@ public class TileServlet extends HttpServlet {
             labelFile = new File(labelFilePar);
         }
         String cacheDirPar = getServletConfig().getInitParameter("cacheDir");
-        if (labelFilePar != null) {
+        if (cacheDirPar != null) {
             cacheDir = new File(cacheDirPar);
         }
         String cacheStr = getServletConfig().getInitParameter("cache");
@@ -71,13 +71,17 @@ public class TileServlet extends HttpServlet {
 
         String layerName = getServletConfig().getInitParameter("layerName");
         String pattern = getServletConfig().getInitParameter("tilePattern");
-        Layer layer = new Layer(layerName, pattern);
+        boolean baseLayer = Boolean.parseBoolean(getServletConfig().getInitParameter("baseLayer"));
+        Layer layer = new Layer(layerName, pattern, baseLayer);
 
-        if (ipDir != null) {
-            if (ipDir.isDirectory()) {
-                LayerRegistrar.getInstance().addLayer(layer);
-            } else {
+        if ((ipDir != null && ipDir.isDirectory()) || (labelFile != null && labelFile.exists())) {
+            LayerRegistrar.getInstance().addLayer(layer);
+        } else {
+            if (ipDir != null) {
                 Logger.getLogger(TileServlet.class.getName()).log(Level.WARNING, "ipDir ''{0}'' is not a directory.", ipDir);
+            }
+            if (labelFile != null) {
+                Logger.getLogger(TileServlet.class.getName()).log(Level.WARNING, "labelFile ''{0}'' does not exist.", labelFile);
             }
         }
     }

@@ -39,13 +39,12 @@ public class Layer {
      */
     private final String path;
 
-    /**
-     * @param name
-     * @param path
-     */
-    public Layer(String name, String path) {
+    private final boolean baseLayer;
+
+    public Layer(String name, String path, boolean baseLayer) {
         this.name = name;
         this.path = path;
+        this.baseLayer = baseLayer;
     }
 
     /**
@@ -66,6 +65,10 @@ public class Layer {
         return path;
     }
 
+    public boolean isBaseLayer() {
+        return baseLayer;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -73,7 +76,7 @@ public class Layer {
      */
     @Override
     public String toString() {
-        return "Layer [name=" + name + ", path=" + path + "]";
+        return "Layer [name=" + name + ", path=" + path + ", baseLayer=" + baseLayer + "]";
     }
 
 }
