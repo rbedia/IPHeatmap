@@ -2,7 +2,7 @@
 <%@page import="org.trillinux.ipheatmap.server.Layer"%>
 <html>
     <head>
-    <title>Gnutella2 Network IP Distribution Map</title>
+        <title><%= application.getInitParameter("title") %></title>
         <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
         <script type="text/javascript" src="hilbert.js"></script>
         <script type="text/javascript" src="ip.js"></script>
@@ -31,6 +31,12 @@
             .olImageLoadError {
                 background-color: transparent !important;
             }
+            #controls {
+                padding-bottom: 4px;
+            }
+            #about {
+                float: right;
+            }
         </style>
     </head>
     <body onload="start();">
@@ -38,6 +44,7 @@
             IP Address: <input id="ipField" type="text" value="<%= request.getRemoteAddr() %>">
             <input id="search" type="button" value="Locate" onclick="searchClick();">
             <span>Clicked location:</span> <input id="currentLocation" type="text" readonly="readonly">
+            <div id="about"><a href="https://github.com/rbedia/IPHeatmap">IPHeatmap</a></div>
         </div>
         <div id="map"></div>
     </body>
